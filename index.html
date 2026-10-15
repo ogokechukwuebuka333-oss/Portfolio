@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Chukwuebuka Ogoke, product designer in Lagos. Portfolio and BetAlmighty case study.">
 <meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://chukwuebukasportfolio.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ogoke Works">
+<meta property="og:title" content="Chukwuebuka Ogoke · Product Designer">
+<meta property="og:description" content="Product designer in Lagos. Portfolio and BetAlmighty case study: a 135-screen iOS betting app with escrow, wallet and responsible-gambling tools.">
+<meta property="og:url" content="https://chukwuebukasportfolio.vercel.app/">
+<meta property="og:image" content="https://chukwuebukasportfolio.vercel.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ogoke Works: Chukwuebuka Ogoke, product designer, with BetAlmighty app screens">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cpolygon points='17,3 31,10 17,17 3,10' fill='%232F64F2'/%3E%3Cpolygon points='3,10 17,17 17,31 3,24' fill='%232F64F2' opacity='.55'/%3E%3Cpolygon points='31,10 17,17 17,31 31,24' fill='%232F64F2' opacity='.8'/%3E%3C/svg%3E">
 <style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>Ogoke Works</title>
@@ -125,6 +136,9 @@ button{font:inherit;color:inherit;cursor:pointer}
 .soon{font-size:13px;color:var(--faint);text-align:center;border:1px dashed var(--line);border-radius:12px;padding:10px}
 .copy{display:flex;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 8px 8px 12px}
 .copy code{flex:1;min-width:0;font:600 13px var(--mono);overflow-wrap:anywhere;user-select:all}
+.links{display:flex;gap:8px}
+.links a{flex:1;text-decoration:none;font-size:14px;padding:10px 12px}
+.links a.alt{background:var(--solid);color:var(--ink);border:1px solid var(--line)}
 .copy button{border:1px solid var(--line);background:var(--solid);border-radius:8px;padding:5px 10px;font-size:12px;font-weight:600}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 
@@ -135,6 +149,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .key svg{flex:none}
 .key span{font-size:12px;color:var(--muted);line-height:1.3;min-width:0}
 .key b{display:block;color:var(--ink);font-size:12.5px}
+@media (max-width:560px){.key{grid-template-columns:1fr}.key span{display:flex;gap:6px;flex-wrap:wrap;align-items:baseline}.key b{display:inline}}
 .cardh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
 .cardh h4{margin:0;display:flex;gap:8px;align-items:center;font:700 14px var(--body)}
 .cardh small{font:600 11px var(--mono);color:var(--faint)}
@@ -245,7 +260,8 @@ button{font:inherit;color:inherit;cursor:pointer}
   --c-ok:#5AC462;--c-ok-t:#1E3320;--c-bad:#ED5F59;--c-bad-t:#251716;--c-info:#4696EC;
   --geist:"Geist","Figtree",system-ui,sans-serif;
   color-scheme:dark;background:var(--c-bg);color:var(--c-ink);font:15.5px/1.6 var(--geist);
-  width:min(1040px,100%);height:100%;overflow:auto;padding-inline:clamp(16px,5vw,64px);padding-block:0 80px;box-shadow:-20px 0 60px rgba(0,0,0,.4);scroll-behavior:smooth}
+  width:min(1040px,100%);height:100%;overflow:auto;padding-inline:clamp(16px,5vw,64px);padding-block:0 80px;box-shadow:-20px 0 60px rgba(0,0,0,.4);scroll-behavior:smooth;overscroll-behavior:contain}
+body:has(.sheet:not([hidden])){overflow:hidden}
 .cs .bar-top{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:12px;padding-block:max(12px, env(safe-area-inset-top, 0px)) 12px;background:color-mix(in srgb, var(--c-bg) 92%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--c-line);margin-inline:calc(-1 * clamp(16px,5vw,64px));padding-inline:clamp(16px,5vw,64px)}
 .cs .crumb{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c-gold);white-space:nowrap}
 .cs .toc{display:flex;gap:4px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
@@ -333,6 +349,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .lb img{max-height:calc(100vh - 80px);max-width:100%;width:auto;border-radius:22px;border:1px solid rgba(255,255,255,.15)}
 .lb p{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#ccc;font:500 13px var(--geist);margin:0}
 @media (max-width:760px){
+  .zoom{top:auto;bottom:12px;grid-auto-flow:column}
   .cs .hero{grid-template-columns:repeat(4,46%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:30px;margin-inline:-16px;padding-inline:16px}
   .cs .hero .shot{scroll-snap-align:start}
   .cs .phones,.cs .phones.four,.cs .phones.five,.cs .phones.three{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:46%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
@@ -356,7 +373,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     </div>
     <label class="search" for="q">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Search projects, industries, skills…" autocomplete="off">
+      <input id="q" type="search" placeholder="Search projects, skills…" autocomplete="off">
       <kbd>/</kbd>
     </label>
     <span class="live"><i></i><span>Open to work · <span id="clock">--:--</span> WAT</span></span>
@@ -911,7 +928,8 @@ function panel(){
     <h3>Skills inventory <span>6 in stock</span></h3>
     <ul class="inv">${[["Product strategy","Research"],["UX flows and state mapping","UX"],["Design systems in Figma","Systems"],["PRDs and design scopes","Docs"],["Brand and visual identity","Visual"],["User research and retention","Research"]].map(inv).join("")}</ul>
     <h3>Contact</h3>
-    <div class="copy"><code id="mail">Harryebuka7@gmail.com</code><button type="button" id="cp">Copy</button></div>`;
+    <div class="copy"><code id="mail">Harryebuka7@gmail.com</code><button type="button" id="cp">Copy</button></div>
+    <div class="links"><a class="cta" href="mailto:Harryebuka7@gmail.com">Email me</a></div>`;
     document.getElementById("cp").onclick=async e=>{const b=e.currentTarget;try{await navigator.clipboard.writeText("Harryebuka7@gmail.com");b.textContent="Copied"}catch(_){const r=document.createRange();r.selectNodeContents(document.getElementById("mail"));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Selected"}setTimeout(()=>b.textContent="Copy",1600)};
   } else {
     el.innerHTML=`<div class="ph"><div><span class="eyebrow">${p.code} · ${esc(p.sector)}</span><h2>${esc(p.name)}</h2></div><span class="pill ${p.tone}">${p.status}</span></div>
