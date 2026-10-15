@@ -1,8 +1,8 @@
-"""Local preview server that mirrors vercel.json: /betalmighty serves index.html."""
+"""Local preview server that mirrors Vercel cleanUrls: /betalmighty serves betalmighty.html."""
 import http.server, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REWRITES = {"/betalmighty": "/index.html"}
+REWRITES = {"/betalmighty": "/betalmighty.html"}
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):

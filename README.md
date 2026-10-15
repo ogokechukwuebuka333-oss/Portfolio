@@ -4,13 +4,13 @@ Static site: `index.html` plus case-study images in `ba/`. No build step.
 
 Deploy on Vercel: import this folder (or its GitHub repo) as a new project,
 Framework Preset "Other", leave Build Command and Output Directory empty.
-`vercel.json` rewrites `/betalmighty` to the home page, which opens the case study.
+Pages: `index.html` (home) and `betalmighty.html` (case study, served at `/betalmighty` by `cleanUrls`). Shared styles and scripts live in `assets/`.
 
 ## Local preview
 
     python3 tests/serve.py 8080
 
-Serves the site on http://localhost:8080 with the same `/betalmighty` rewrite as Vercel.
+Serves the site on http://localhost:8080 with the same clean URLs as Vercel.
 
 ## End-to-end tests
 

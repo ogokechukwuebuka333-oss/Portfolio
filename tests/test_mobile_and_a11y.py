@@ -33,18 +33,18 @@ def test_phone_layout_basics(phone, base_url):
     phone.goto(base_url + "/")
     expect(phone.locator(".nav")).to_be_hidden()
     expect(phone.locator(".top [data-mail]")).to_be_visible()
-    zoom = phone.locator(".zoom").bounding_box()
-    scene = phone.locator(".map").bounding_box()
-    assert zoom["y"] > scene["y"] + scene["height"] / 2, "zoom controls sit at the bottom of the map on phones"
 
 
-def test_phone_full_screen_stacks_panel_below(phone, base_url):
+def test_phone_explorer_card_is_a_bottom_sheet(phone, base_url):
     phone.goto(base_url + "/")
-    phone.locator("#zfull").tap()
-    expect(phone.locator(".plan")).to_have_class("plan full")
-    m, p = phone.locator(".map").bounding_box(), phone.locator("#panel").bounding_box()
-    assert p["y"] >= m["y"] + m["height"] - 1
-    assert p["y"] + p["height"] <= 812 + 1
+    phone.locator('#heroLabels .plabel[data-id="hassanah"]').tap()
+    expect(phone.locator("#explorer")).to_be_visible()
+    card = phone.locator("#panel").bounding_box()
+    assert card["y"] + card["height"] <= 812 + 1 and card["y"] > 812 * 0.45, card
+    assert card["width"] > 375 * 0.9
+    phone.wait_for_timeout(700)
+    label = phone.locator('#plabels .plabel[data-id="hassanah"]').bounding_box()
+    assert label["y"] + label["height"] < card["y"], "selected building sits above the sheet"
 
 
 def test_phone_flow_boards_scroll_sideways(phone, base_url):
@@ -81,5 +81,69 @@ def test_keyboard_reaches_case_study(page, base_url):
     page.goto(base_url + "/")
     page.locator("#openCase").focus()
     page.keyboard.press("Enter")
-    expect(page.locator("#case")).to_be_visible()
-    expect(page.locator("#csClose")).to_be_focused()
+    expect(page).to_have_url(base_url + "/betalmighty")
+    expect(page.locator("#csTitle")).to_be_visible()
+    page.keyboard.press("Tab")
+    expect(page.locator(":focus")).to_be_visible()
+
+
+@pytest.mark.parametrize("where", ["hero", "explorer"])
+def test_map_labels_readable_on_phone(phone, base_url, where):
+    phone.goto(base_url + "/")
+    if where == "explorer":
+        phone.locator(".hexplore").tap()
+    labels = phone.locator(("#heroLabels" if where == "hero" else "#plabels") + " .plabel:not([hidden])")
+    assert labels.count() == 5
+    sizes = labels.evaluate_all("els => els.map(e => parseFloat(getComputedStyle(e).fontSize))")
+    assert min(sizes) >= 12, sizes
+    boxes = [labels.nth(i).bounding_box() for i in range(labels.count())]
+    overlaps = [(i, j) for i in range(len(boxes)) for j in range(i + 1, len(boxes))
+                if not (boxes[i]["x"] + boxes[i]["width"] <= boxes[j]["x"] or boxes[j]["x"] + boxes[j]["width"] <= boxes[i]["x"]
+                        or boxes[i]["y"] + boxes[i]["height"] <= boxes[j]["y"] or boxes[j]["y"] + boxes[j]["height"] <= boxes[i]["y"])]
+    assert overlaps == [], f"labels overlap on a phone: {overlaps}"
+
+
+CONTRAST_JS = r"""() => {
+  const lum = c => { const m = c.match(/[\d.]+/g).map(Number); const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4 }; return .2126 * f(m[0]) + .7152 * f(m[1]) + .0722 * f(m[2]) };
+  const bgOf = e => { for (let n = e; n; n = n.parentElement) { const a = getComputedStyle(n).backgroundColor.match(/[\d.]+/g); if (a && (a[3] === undefined || +a[3] > .5)) return getComputedStyle(n).backgroundColor } return getComputedStyle(document.body).backgroundColor };
+  const bad = {}; const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); let t;
+  while (t = w.nextNode()) {
+    const e = t.parentElement; if (!t.textContent.trim() || !e.getClientRects().length || e.closest('svg,[aria-hidden=true],#lb,[hidden]')) continue;
+    const s = getComputedStyle(e); if (s.visibility === 'hidden') continue;
+    const a = lum(s.color), b = lum(bgOf(e)), r = (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+    const big = parseFloat(s.fontSize) >= 24 || (parseFloat(s.fontSize) >= 18.66 && +s.fontWeight >= 700);
+    if (r < (big ? 3 : 4.5)) bad[t.textContent.trim().slice(0, 40)] = `${r.toFixed(2)}:1 at ${s.fontSize}`;
+  }
+  return bad;
+}"""
+
+
+@pytest.mark.parametrize("scheme", ["light", "dark"])
+@pytest.mark.parametrize("path", ["/", "/betalmighty"])
+def test_text_contrast_meets_wcag_aa(browser, base_url, scheme, path):
+    ctx = browser.new_context(color_scheme=scheme, viewport={"width": 1440, "height": 900})
+    page = ctx.new_page()
+    page.goto(base_url + path)
+    page.wait_for_timeout(300)
+    if path == "/":
+        page.locator("#heroLabels .plabel[data-id='hq']").click()  # include the About card in the explorer
+        page.wait_for_timeout(400)  # let the label's colour transition finish
+    failures = page.evaluate(CONTRAST_JS)
+    ctx.close()
+    assert failures == {}, failures
+
+
+def test_phone_shows_the_city_in_the_first_screen(phone, base_url):
+    phone.goto(base_url + "/")
+    top = phone.locator("#hcity").bounding_box()["y"]
+    assert top < 844 * 0.75, f"city starts at {top}px on a 844px-tall phone"
+
+
+def test_phone_escrow_states_sit_above_their_screen(phone, base_url):
+    phone.goto(base_url + "/betalmighty")
+    tab = phone.locator("#esx-t3")
+    tab.scroll_into_view_if_needed()
+    tab.tap()
+    screen = phone.locator(".esx-phone").bounding_box()
+    assert screen["y"] < 812 and screen["y"] + 40 > tab.bounding_box()["y"], "the screen a state controls is visible right after tapping"
+    expect(phone.locator(".esx-text h3")).to_have_text("Disputed")

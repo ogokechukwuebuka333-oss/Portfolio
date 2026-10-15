@@ -57,7 +57,8 @@ def problems(page):
             found.append(f"{r.status} {r.url}")
 
     page.on("response", on_response)
-    page.on("requestfailed", lambda r: found.append(f"failed {r.url} ({r.failure})"))
+    # requests cancelled by navigating to another page are expected, not failures
+    page.on("requestfailed", lambda r: "ERR_ABORTED" not in (r.failure or "") and found.append(f"failed {r.url} ({r.failure})"))
     yield found
     assert not found, "\n".join(found)
 

@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="BetAlmighty case study by Chukwuebuka Ogoke: escrow between friends, a naira and crypto wallet, and safety tools, across 135 iOS screens.">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://chukwuebukasportfolio.vercel.app/betalmighty">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Ogoke Works">
+<meta property="og:title" content="BetAlmighty: holding friends' money fairly">
+<meta property="og:description" content="Case study by Chukwuebuka Ogoke, product designer. A 135-screen iOS betting app where friends' stakes wait in escrow until both sides agree.">
+<meta property="og:url" content="https://chukwuebukasportfolio.vercel.app/betalmighty">
+<meta property="og:image" content="https://chukwuebukasportfolio.vercel.app/og-betalmighty.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BetAlmighty case study: app screens on a dark gold background">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cpolygon points='17,3 31,10 17,17 3,10' fill='%232F64F2'/%3E%3Cpolygon points='3,10 17,17 17,31 3,24' fill='%232F64F2' opacity='.55'/%3E%3Cpolygon points='31,10 17,17 17,31 31,24' fill='%232F64F2' opacity='.8'/%3E%3C/svg%3E">
+<style>html,body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>BetAlmighty case study · Ogoke Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Geist:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css?v=7">
+</head>
+<body class="case-page">
+<main class="sheet" id="case">
+  <article class="cs" id="csBody" aria-labelledby="csTitle">
+    <div class="bar-top">
+      <span class="crumb">BA-01</span>
+      <nav class="toc" id="csToc" aria-label="Case study sections">
+        <a href="#cs-brief">Brief</a><a href="#cs-workflow">How I worked</a><a href="#cs-decisions">Decisions</a><a href="#cs-escrow">Escrow</a><a href="#cs-safety">Safety</a><a href="#cs-more">Also designed</a><a href="#cs-system">Design system</a><a href="#cs-handoff">Handoff</a><a href="#cs-outcome">Outcome</a>
+      </nav>
+      <a class="x" id="csClose" href="/" data-home>← All work</a>
+    </div>
+
+    <div class="cover">
+      <div class="ctext">
+        <p class="kick">BA-01 · Fintech · iOS · Client project</p>
+        <h1 id="csTitle">BetAlmighty<sup>®</sup></h1>
+        <p class="lead"><b>Holding friends' money fairly.</b> A Nigerian betting app where friends stake against each other and the money waits in escrow until both sides agree on the result.</p>
+        <div class="meta">
+          <div><span>Role</span><b>Product designer</b></div>
+          <div><span>Team</span><b>Solo, client project</b></div>
+          <div><span>Timeline</span><b>Jul – Sep 2026</b></div>
+          <div><span>Status</span><b>In development</b></div>
+          <div><span>Platform</span><b>iOS · Nigeria, NGN + crypto</b></div>
+          <div><span>Scope</span><b>135 screens · 5 product areas</b></div>
+        </div>
+      </div>
+      <div class="cart" aria-hidden="true">
+        <img src="ba/p2p.jpg" alt="" width="402" height="874">
+        <img src="ba/home.jpg" alt="" width="402" height="874">
+        <img src="ba/wallet.jpg" alt="" width="402" height="874">
+      </div>
+    </div>
+    <div class="summary">
+    <div class="glance">
+      <div><span>The brief</span><p>A requirements doc with user stories for seven modules, from the wallet to 1v1 bets.</p></div>
+      <div><span>My approach</span><p>AI-drafted mid-fi flows from every user story, critique rounds, then the final screens redesigned in Figma.</p></div>
+      <div><span>The result</span><p>135 screens and a handoff note with every open rule and risk. In development, and praised by the client for simplicity.</p></div>
+    </div>
+    <div class="owned">
+      <h2>What I owned</h2>
+      <ul>
+        <li>The <b>iOS app end to end</b>: 135 screens across home, lottery, betting, community and wallet</li>
+        <li>The <b>10-state escrow system</b>, mapped with engineering before any screens</li>
+        <li>A <b>failure state for every money flow</b>: declined cards, BVN mismatches, disputes</li>
+        <li>The <b>responsible-gambling tools</b>, built into the core flows</li>
+        <li>The <b>dark-first token system</b> for colour, type and spacing</li>
+      </ul>
+    </div>
+    </div>
+    <section id="cs-brief">
+      <span class="eb">The brief</span>
+      <h2>A requirements doc, not a design brief</h2>
+      <p>The client arrived with numbered modules, functional requirements and user stories, from the dashboard to the 1v1 personal bet. It said what the product must do. It didn't say how it should feel, or <b>what happens when money goes wrong</b>. That gap was the job.</p>
+      <div class="cards">
+        <div class="card"><span class="k">Challenge 01</span><h3>Holding friends' money</h3><p>When two people bet against each other, someone has to hold the stakes and someone has to decide who won. Both had to feel fair.</p></div>
+        <div class="card"><span class="k">Challenge 02</span><h3>Nigerian payment realities</h3><p>Bank transfer is the default, card charges get declined, and many players hold USDT. Funding and withdrawals had to work on all three.</p></div>
+        <div class="card"><span class="k">Challenge 03</span><h3>Gambling harm</h3><p>Making betting social also makes it easier to overdo. Limits and breaks had to sit inside the core flows, not in a settings page.</p></div>
+      </div>
+    </section>
+
+    <section id="cs-workflow">
+      <span class="eb">How I worked</span>
+      <h2>From user stories to final screens</h2>
+      <p>I was the only designer on this project. For each module, I gave Claude the client's user stories and had it draft the flow as mid-fidelity screens. I then reviewed every flow, <b>redesigned the final screens myself in Figma</b>, and wrote the handoff notes.</p>
+      <ol class="steps">
+        <li><b>User stories in</b><p>For each module I gave Claude the client's requirements and user stories and had it draft the whole flow as mid-fidelity screens, with the user-story number on every frame.</p></li>
+        <li><b>Flow boards out</b><p>Each flow came back as a labelled board, every state side by side, ready to paste into Figma and review end to end.</p></li>
+        <li><b>Critique rounds</b><p>I used AI as a critic too: where flows dead-end, which states are missing, where the UI promises something the product can't deliver. I acted on what held up and set aside a critique that misread the product.</p></li>
+        <li><b>Redesign in Figma</b><p>I redesigned the final screens myself in Figma and built the visual language and token system around them.</p></li>
+        <li><b>Handoff notes</b><p>I wrote up every rule the designs assumed and every question the client had to answer before build.</p></li>
+      </ol>
+      <div class="stats">
+        <div><b>22</b><span>flow boards, one per module or flow</span></div>
+        <div><b>147</b><span>mid-fidelity screens drafted</span></div>
+        <div><b>135</b><span>final screens designed in Figma</span></div>
+      </div>
+      <figure class="board strip"><button type="button" data-full="ba/wf/1v1-board.jpg" data-cap="Mid-fidelity flow board: the 1v1 personal bet, from challenge to escrow, confirmation, dispute and cancellation (user stories US-060 to US-064)" aria-label="Enlarge flow board"><img src="ba/wf/1v1-board.jpg" alt="Mid-fidelity flow board: the 1v1 personal bet, from challenge to escrow, confirmation, dispute and cancellation (user stories US-060 to US-064)" loading="lazy" width="3400" height="752"></button><figcaption>Mid-fidelity flow board: the 1v1 personal bet, from challenge to escrow, confirmation, dispute and cancellation (user stories US-060 to US-064) <span>Tap to enlarge</span></figcaption></figure>
+      <div class="ba">
+        <div class="slider" style="--pos:50%">
+          <img src="ba/details.jpg" alt="Final Bet details screen, redesigned in Figma" loading="lazy" width="402" height="874">
+          <img class="before" src="ba/wf/midfi-details.jpg" alt="July mid-fidelity draft of the same Bet details screen" loading="lazy" width="402" height="874">
+          <span class="sl-k l">July draft</span><span class="sl-k r">Final</span>
+          <span class="sl-bar" aria-hidden="true"><i></i></span>
+          <input type="range" min="0" max="100" value="50" aria-label="Compare the July draft with the final design">
+        </div>
+        <p class="note">Same screen, two stages. Drag to compare. The structure survived; the redesign quietened the chrome so the money in escrow is the loudest thing on screen.</p>
+      </div>
+    </section>
+
+    <section id="cs-decisions">
+      <span class="eb">Key decisions</span>
+      <h2>Four calls the brief didn't make</h2>
+      <p>Each one started as a gap or a problem I found in the drafts.</p>
+
+      <div class="dec">
+        <span class="dn">01</span>
+        <h3>Make it obvious who settles a bet</h3>
+        <div class="dtext"><p><b>Problem:</b> P2P market, group and 1v1 bets shared the same card, the same "escrow" wording and the same title. But one settles itself, and one needs you to chase a friend.</p>
+        <p><b>Decision:</b> every bet type carries its own identity from creation to the wallet. <b>Blue settles automatically. Gold means you and your opponent confirm.</b> Committed Funds puts the bets that need you at the top.</p></div>
+        <div class="evo">
+          <div class="evo-col"><span class="evo-k">July · mid-fi drafts</span><div class="evo-row"><figure class="shot mf"><button type="button" data-full="ba/wf/mf-bt-01-choose-type.jpg" data-cap="July mid-fi draft: Choose bet type" aria-label="Enlarge the mid-fi Choose bet type draft"><img src="ba/wf/mf-bt-01-choose-type.jpg" alt="Mid-fidelity July draft of the Choose bet type screen" loading="lazy" width="603" height="1311"></button><figcaption><b>Choose bet type</b>Type chosen up front</figcaption></figure><figure class="shot mf"><button type="button" data-full="ba/wf/mf-bt-02-committed-funds.jpg" data-cap="July mid-fi draft: Committed funds" aria-label="Enlarge the mid-fi Committed funds draft"><img src="ba/wf/mf-bt-02-committed-funds.jpg" alt="Mid-fidelity July draft of the Committed funds screen" loading="lazy" width="603" height="1311"></button><figcaption><b>Committed funds</b>Flags the bets that need you</figcaption></figure></div></div>
+          <span class="evo-arrow" aria-hidden="true">→</span>
+          <div class="evo-col fin"><span class="evo-k">Final · Figma</span><div class="evo-row"><figure class="shot"><button type="button" data-full="ba/newbet.jpg" data-cap="New bet: Chosen by who settles it" aria-label="Enlarge New bet screen"><img src="ba/newbet.jpg" alt="BetAlmighty New bet screen: Chosen by who settles it" loading="lazy" width="402" height="874"><span class="mk" style="--x:96%;--y:30%" aria-hidden="true">1</span><span class="mk" style="--x:96%;--y:60%" aria-hidden="true">2</span><span class="mk" style="--x:4%;--y:22%" aria-hidden="true">3</span></button><figcaption><b>New bet</b>Chosen by who settles it</figcaption></figure><figure class="shot"><button type="button" data-full="ba/committed.jpg" data-cap="Committed funds: Where every locked naira is" aria-label="Enlarge Committed funds screen"><img src="ba/committed.jpg" alt="BetAlmighty Committed funds screen: Where every locked naira is" loading="lazy" width="402" height="874"></button><figcaption><b>Committed funds</b>Where every locked naira is</figcaption></figure></div></div>
+        </div>
+        <ol class="callouts"><li><span><b>Blue badge:</b> the bet settles itself from the event result.</span></li><li><span><b>Gold badge:</b> you and your opponent confirm the winner.</span></li><li><span>One question at the top: who decides the result?</span></li></ol>
+        <button type="button" class="boardlink" data-full="ba/wf/bettypes-board.jpg" data-cap="Bet-type differentiation: blue settles automatically, gold needs both players to confirm, carried into Committed Funds" data-wide><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Open the full flow board</button>
+      </div>
+
+      <div class="dec">
+        <span class="dn">02</span>
+        <h3>Let people in light, but gate the money</h3>
+        <div class="dtext"><p><b>Problem:</b> the first sign-up draft offered Skip on registration and on the phone code, which means skipping identity checks in an app that holds money.</p>
+        <p><b>Decision:</b> no skipping the phone code, and an honest four-step progress bar. BVN can wait, but until it's verified withdrawals stay locked, and the success screen says exactly what's available and what isn't.</p></div>
+        <div class="evo">
+          <div class="evo-col"><span class="evo-k">July · mid-fi drafts</span><div class="evo-row"><figure class="shot mf"><button type="button" data-full="ba/wf/mf-auth-03-otp.jpg" data-cap="July mid-fi draft: Phone code" aria-label="Enlarge the mid-fi Phone code draft"><img src="ba/wf/mf-auth-03-otp.jpg" alt="Mid-fidelity July draft of the Phone code screen" loading="lazy" width="603" height="1311"></button><figcaption><b>Phone code</b>No skip on the phone code</figcaption></figure><figure class="shot mf"><button type="button" data-full="ba/wf/mf-auth-05-bvn.jpg" data-cap="July mid-fi draft: BVN step" aria-label="Enlarge the mid-fi BVN step draft"><img src="ba/wf/mf-auth-05-bvn.jpg" alt="Mid-fidelity July draft of the BVN step screen" loading="lazy" width="603" height="1311"></button><figcaption><b>BVN step</b>Skipping BVN, stated honestly</figcaption></figure></div></div>
+          <span class="evo-arrow" aria-hidden="true">→</span>
+          <div class="evo-col fin"><span class="evo-k">Final · Figma</span><div class="evo-row"><figure class="shot"><button type="button" data-full="ba/limited.jpg" data-cap="Account created: Tier 1: what&#x27;s available and what&#x27;s locked" aria-label="Enlarge Account created screen"><img src="ba/limited.jpg" alt="BetAlmighty Account created screen: Tier 1: what&#x27;s available and what&#x27;s locked" loading="lazy" width="402" height="874"><span class="mk" style="--x:96%;--y:46.5%" aria-hidden="true">1</span><span class="mk" style="--x:4%;--y:57%" aria-hidden="true">2</span><span class="mk" style="--x:96%;--y:86.5%" aria-hidden="true">3</span></button><figcaption><b>Account created</b>Tier 1: what&#x27;s available and what&#x27;s locked</figcaption></figure><figure class="shot"><button type="button" data-full="ba/bvn.jpg" data-cap="BVN step: Optional, with skip terms stated" aria-label="Enlarge BVN step screen"><img src="ba/bvn.jpg" alt="BetAlmighty BVN step screen: Optional, with skip terms stated" loading="lazy" width="402" height="874"></button><figcaption><b>BVN step</b>Optional, with skip terms stated</figcaption></figure></div></div>
+        </div>
+        <ol class="callouts"><li><span>What's locked is said up front: <b>withdrawals wait for BVN</b>.</span></li><li><span>A Tier 1 badge follows the player until they verify.</span></li><li><span>Verifying stays one tap away.</span></li></ol>
+        <button type="button" class="boardlink" data-full="ba/wf/onboarding-board.jpg" data-cap="Onboarding and sign-up redesign: no phantom Skip, honest progress, error paths for the phone code and BVN, and a limited Tier 1 state" data-wide><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Open the full flow board</button>
+      </div>
+
+      <div class="dec">
+        <span class="dn">03</span>
+        <h3>Deposits earn revenue. Withdrawals earn trust.</h3>
+        <div class="dtext"><p><b>Problem:</b> early drafts ended money flows at a button. Nothing told players what happened after their money left their hands.</p>
+        <p><b>Decision:</b> I rebuilt withdrawal as review with fees upfront, a one-time code, a detailed receipt and a status tracker, with network guardrails and an irreversibility check for crypto. Then I gave funding the same pending-to-confirmed structure.</p></div>
+        <div class="evo">
+          <div class="evo-col"><span class="evo-k">July · mid-fi drafts</span><div class="evo-row"><figure class="shot mf"><button type="button" data-full="ba/wf/mf-wd-02-review.jpg" data-cap="July mid-fi draft: Review withdrawal" aria-label="Enlarge the mid-fi Review withdrawal draft"><img src="ba/wf/mf-wd-02-review.jpg" alt="Mid-fidelity July draft of the Review withdrawal screen" loading="lazy" width="603" height="1311"></button><figcaption><b>Review withdrawal</b>Fees before you confirm</figcaption></figure><figure class="shot mf"><button type="button" data-full="ba/wf/mf-wd-05-status-tracker.jpg" data-cap="July mid-fi draft: Status tracker" aria-label="Enlarge the mid-fi Status tracker draft"><img src="ba/wf/mf-wd-05-status-tracker.jpg" alt="Mid-fidelity July draft of the Status tracker screen" loading="lazy" width="603" height="1311"></button><figcaption><b>Status tracker</b>Every step after the button</figcaption></figure></div></div>
+          <span class="evo-arrow" aria-hidden="true">→</span>
+          <div class="evo-col fin"><span class="evo-k">Final · Figma</span><div class="evo-row"><figure class="shot"><button type="button" data-full="ba/wstatus.jpg" data-cap="Withdrawal status: Requested → review → sent → credited" aria-label="Enlarge Withdrawal status screen"><img src="ba/wstatus.jpg" alt="BetAlmighty Withdrawal status screen: Requested → review → sent → credited" loading="lazy" width="402" height="874"><span class="mk" style="--x:4%;--y:36%" aria-hidden="true">1</span><span class="mk" style="--x:96%;--y:54.5%" aria-hidden="true">2</span><span class="mk" style="--x:96%;--y:80%" aria-hidden="true">3</span></button><figcaption><b>Withdrawal status</b>Requested → review → sent → credited</figcaption></figure><figure class="shot"><button type="button" data-full="ba/cryptowarn.jpg" data-cap="Crypto withdrawal: Irreversible, double-check prompt" aria-label="Enlarge Crypto withdrawal screen"><img src="ba/cryptowarn.jpg" alt="BetAlmighty Crypto withdrawal screen: Irreversible, double-check prompt" loading="lazy" width="402" height="874"></button><figcaption><b>Crypto withdrawal</b>Irreversible, double-check prompt</figcaption></figure></div></div>
+        </div>
+        <ol class="callouts"><li><span>Every step from request to credit, with times.</span></li><li><span>Honest timing at the step that's in progress.</span></li><li><span>Help is in the flow, not in a menu.</span></li></ol>
+        <button type="button" class="boardlink" data-full="ba/wf/withdraw-board.jpg" data-cap="Withdrawal experience: review, two-factor code, receipt, status tracker, and crypto network guardrails" data-wide><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Open the full flow board</button>
+      </div>
+
+      <div class="dec">
+        <span class="dn">04</span>
+        <h3>Nothing refunds until both agree</h3>
+        <div class="dtext"><p><b>Problem:</b> reviewing the 1v1 flow, I found there was no way to back out of a bet once the stakes were locked.</p>
+        <p><b>Decision:</b> a two-sided handshake. One player proposes cancelling with a reason, the other agrees or declines, and refunds happen only when both agree, with no fee. A decline keeps the bet live and points to confirming the result or opening a dispute.</p></div>
+        <div class="evo">
+          <div class="evo-col"><span class="evo-k">July · mid-fi drafts</span><div class="evo-row"><figure class="shot mf"><button type="button" data-full="ba/wf/mf-1v1-11-propose-cancel.jpg" data-cap="July mid-fi draft: Propose" aria-label="Enlarge the mid-fi Propose draft"><img src="ba/wf/mf-1v1-11-propose-cancel.jpg" alt="Mid-fidelity July draft of the Propose screen" loading="lazy" width="603" height="1311"></button><figcaption><b>Propose</b>With a reason</figcaption></figure><figure class="shot mf"><button type="button" data-full="ba/wf/mf-1v1-13-cancel-refunded.jpg" data-cap="July mid-fi draft: Both agreed" aria-label="Enlarge the mid-fi Both agreed draft"><img src="ba/wf/mf-1v1-13-cancel-refunded.jpg" alt="Mid-fidelity July draft of the Both agreed screen" loading="lazy" width="603" height="1311"></button><figcaption><b>Both agreed</b>Refunded, no fee</figcaption></figure><figure class="shot mf"><button type="button" data-full="ba/wf/mf-1v1-14-cancel-declined.jpg" data-cap="July mid-fi draft: Declined" aria-label="Enlarge the mid-fi Declined draft"><img src="ba/wf/mf-1v1-14-cancel-declined.jpg" alt="Mid-fidelity July draft of the Declined screen" loading="lazy" width="603" height="1311"></button><figcaption><b>Declined</b>Bet stays live</figcaption></figure></div></div>
+          <span class="evo-arrow" aria-hidden="true">→</span>
+          <div class="evo-col fin"><span class="evo-k">Final · Figma</span><div class="evo-row"><figure class="shot"><button type="button" data-full="ba/cancel.jpg" data-cap="Mutual cancel: Who has agreed, refund breakdown" aria-label="Enlarge Mutual cancel screen"><img src="ba/cancel.jpg" alt="BetAlmighty Mutual cancel screen: Who has agreed, refund breakdown" loading="lazy" width="402" height="874"><span class="mk" style="--x:96%;--y:42%" aria-hidden="true">1</span><span class="mk" style="--x:96%;--y:63%" aria-hidden="true">2</span><span class="mk" style="--x:96%;--y:85%" aria-hidden="true">3</span></button><figcaption><b>Mutual cancel</b>Who has agreed, refund breakdown</figcaption></figure></div></div>
+        </div>
+        <ol class="callouts"><li><span>Exactly who gets what back, and no fee.</span></li><li><span>Both players' answers, visible to both.</span></li><li><span>Declining is as easy as agreeing.</span></li></ol>
+        <button type="button" class="boardlink" data-full="ba/wf/cancel-board.jpg" data-cap="Mutual cancellation, added after review: propose, wait, opponent decides, refunded or declined" data-wide><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Open the full flow board</button>
+      </div>
+    </section>
+
+    <section id="cs-escrow">
+      <span class="eb">Escrow</span>
+      <h2>I designed the state machine before the screens</h2>
+      <p>Money in a personal bet can be in ten states. I mapped them for engineering first, so every screen, notification and button maps to exactly one state and nothing falls between two. <b>Pick a state to see its screen.</b></p>
+      <div class="esx" data-states="[{&quot;n&quot;: &quot;Locked&quot;, &quot;c&quot;: &quot;amber&quot;, &quot;l&quot;: &quot;Funds held&quot;, &quot;d&quot;: &quot;Both stakes lock the moment the opponent accepts. What&#x27;s in escrow is the first thing on screen.&quot;}, {&quot;n&quot;: &quot;Confirming&quot;, &quot;c&quot;: &quot;amber&quot;, &quot;l&quot;: &quot;Funds held&quot;, &quot;d&quot;: &quot;When the event ends, each player picks the winner and can attach evidence.&quot;}, {&quot;n&quot;: &quot;Released&quot;, &quot;c&quot;: &quot;green&quot;, &quot;l&quot;: &quot;Paid out&quot;, &quot;d&quot;: &quot;Both confirmations match: the pot is released instantly, with no admin involved.&quot;}, {&quot;n&quot;: &quot;Disputed&quot;, &quot;c&quot;: &quot;red&quot;, &quot;l&quot;: &quot;Conflict&quot;, &quot;d&quot;: &quot;Confirmations don&#x27;t match, so the bet becomes a dispute. An admin reviews the evidence both sides upload, usually within 24 hours.&quot;}, {&quot;n&quot;: &quot;On hold&quot;, &quot;c&quot;: &quot;grey&quot;, &quot;l&quot;: &quot;Paused&quot;, &quot;d&quot;: &quot;Evidence is unclear: funds stay on hold until clearer evidence arrives or both agree to cancel.&quot;}, {&quot;n&quot;: &quot;Mutual cancel&quot;, &quot;c&quot;: &quot;grey&quot;, &quot;l&quot;: &quot;Refunded&quot;, &quot;d&quot;: &quot;Either player can propose cancelling. If both agree, each stake goes back in full with no fee.&quot;}]">
+        <div class="esx-map" role="tablist" aria-label="Escrow states" aria-orientation="vertical">
+          <button type="button" role="tab" class="st amber" style="grid-area:lock" id="esx-t0" aria-controls="esxPanel" aria-selected="true" tabindex="0" data-k="0"><b>Locked</b><small>Funds held</small></button><button type="button" role="tab" class="st amber" style="grid-area:conf" id="esx-t1" aria-controls="esxPanel" aria-selected="false" tabindex="-1" data-k="1"><b>Confirming</b><small>Funds held</small></button><button type="button" role="tab" class="st green" style="grid-area:rel" id="esx-t2" aria-controls="esxPanel" aria-selected="false" tabindex="-1" data-k="2"><b>Released</b><small>Paid out</small></button><button type="button" role="tab" class="st red" style="grid-area:disp" id="esx-t3" aria-controls="esxPanel" aria-selected="false" tabindex="-1" data-k="3"><b>Disputed</b><small>Conflict</small></button><button type="button" role="tab" class="st grey" style="grid-area:hold" id="esx-t4" aria-controls="esxPanel" aria-selected="false" tabindex="-1" data-k="4"><b>On hold</b><small>Paused</small></button><button type="button" role="tab" class="st grey" style="grid-area:cancel" id="esx-t5" aria-controls="esxPanel" aria-selected="false" tabindex="-1" data-k="5"><b>Mutual cancel</b><small>Refunded</small></button>
+          <span class="cn" style="grid-area:c1">event ends ↓</span>
+          <span class="cn" style="grid-area:c2">both match ↓</span>
+          <span class="cn" style="grid-area:c3">they don't ↓</span>
+          <span class="cn" style="grid-area:c4">evidence unclear ↓</span>
+          <span class="cn side" style="grid-area:c5">← either player proposes</span>
+        </div>
+        <div class="esx-view" role="tabpanel" id="esxPanel" aria-labelledby="esx-t0">
+          <div class="esx-phone"><img src="ba/details.jpg" alt="BetAlmighty screen in the Locked state" loading="lazy" width="402" height="874" class="on" data-k="0"><img src="ba/confirm.jpg" alt="BetAlmighty screen in the Confirming state" loading="lazy" width="402" height="874" class="" data-k="1"><img src="ba/settled.jpg" alt="BetAlmighty screen in the Released state" loading="lazy" width="402" height="874" class="" data-k="2"><img src="ba/dispute.jpg" alt="BetAlmighty screen in the Disputed state" loading="lazy" width="402" height="874" class="" data-k="3"><img src="ba/hold.jpg" alt="BetAlmighty screen in the On hold state" loading="lazy" width="402" height="874" class="" data-k="4"><img src="ba/cancel.jpg" alt="BetAlmighty screen in the Mutual cancel state" loading="lazy" width="402" height="874" class="" data-k="5"></div>
+          <div class="esx-text"><span class="esx-k amber">State 1 of 6 · Funds held</span><h3>Locked</h3><p>Both stakes lock the moment the opponent accepts. What's in escrow is the first thing on screen.</p></div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i style="background:#8A5A12"></i>Amber: funds held</span>
+        <span><i style="background:#2C5A12"></i>Green: released</span>
+        <span><i style="background:#8A2020"></i>Red: conflict</span>
+        <span><i style="background:#4B4B4B"></i>Grey: paused</span>
+      </div>
+      <p>The same colours carry into the app, so players can read a bet's state at a glance.</p>
+      <button type="button" class="boardlink" data-full="ba/escrow.jpg" data-cap="Escrow state system for engineering: all ten states and their transitions"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Open the engineering diagram</button>
+    </section>
+
+    <section id="cs-safety">
+      <span class="eb">Play responsibly</span>
+      <h2>Safety built into the flow, not buried in settings</h2>
+      <p>The Play Responsibly hub shows this week's time in the app, deposits and net result, and holds every tool: weekly deposit and loss limits, session reminders, breaks from 24 hours to 30 days, self-exclusion from 6 months to permanent, and a free, confidential support line.</p>
+      <div class="rg">
+        <div class="rgrow"><figure class="shot"><button type="button" data-full="ba/rghub.jpg" data-cap="Play Responsibly: This week, limits, tools" aria-label="Enlarge Play Responsibly screen"><img src="ba/rghub.jpg" alt="BetAlmighty Play Responsibly screen: This week, limits, tools" loading="lazy" width="402" height="874"></button><figcaption><b>Play Responsibly</b>This week, limits, tools</figcaption></figure><div><div class="q">The hub</div><h3>One place for every limit</h3><p>Progress bars show how much of each weekly limit is used, so a player sees where they stand before a limit stops them.</p></div></div>
+        <div class="rgrow"><figure class="shot"><button type="button" data-full="ba/rgsession.jpg" data-cap="Session reminder: After an hour of play" aria-label="Enlarge Session reminder screen"><img src="ba/rgsession.jpg" alt="BetAlmighty Session reminder screen: After an hour of play" loading="lazy" width="402" height="874"></button><figcaption><b>Session reminder</b>After an hour of play</figcaption></figure><div><div class="q">Session reminder</div><h3>A pause with the numbers</h3><p>After an hour, a sheet shows stakes, wins and net result, with Take a Break as the main action and Keep Playing beneath it.</p></div></div>
+        <div class="rgrow"><figure class="shot"><button type="button" data-full="ba/rgdeposit.jpg" data-cap="Deposit limit: Options, not just a wall" aria-label="Enlarge Deposit limit screen"><img src="ba/rgdeposit.jpg" alt="BetAlmighty Deposit limit screen: Options, not just a wall" loading="lazy" width="402" height="874"></button><figcaption><b>Deposit limit</b>Options, not just a wall</figcaption></figure><div><div class="q">Deposit limit</div><h3>Options instead of a dead end</h3><p>Deposit what's left of the cap, wait for the weekly reset, or raise the limit. A raise takes effect after 24 hours, never instantly.</p></div></div>
+        <div class="rgrow"><figure class="shot"><button type="button" data-full="ba/rgbreak.jpg" data-cap="Break active: What&#x27;s blocked, what isn&#x27;t" aria-label="Enlarge Break active screen"><img src="ba/rgbreak.jpg" alt="BetAlmighty Break active screen: What&#x27;s blocked, what isn&#x27;t" loading="lazy" width="402" height="874"></button><figcaption><b>Break active</b>What&#x27;s blocked, what isn&#x27;t</figcaption></figure><div><div class="q">Break</div><h3>A break that means it</h3><p>Betting and deposits are blocked, while withdrawals stay open and open bets still settle. The break can't be ended early.</p></div></div>
+        <div class="rgrow"><figure class="shot"><button type="button" data-full="ba/rgloss.jpg" data-cap="Loss limit reached: Paused until Monday" aria-label="Enlarge Loss limit reached screen"><img src="ba/rgloss.jpg" alt="BetAlmighty Loss limit reached screen: Paused until Monday" loading="lazy" width="402" height="874"></button><figcaption><b>Loss limit reached</b>Paused until Monday</figcaption></figure><div><div class="q">Loss limit</div><h3>Stops at the line you drew</h3><p>New bets and tickets pause until the period resets, and the limit can't be raised mid-period. Withdrawals are never blocked.</p></div></div>
+      </div>
+      <p class="pull">"A break cannot be ended early. Not by you, not by support. That is what makes it worth setting."<small>Copy from the Break Active screen</small></p>
+    </section>
+
+    <section id="cs-more">
+      <span class="eb">Also designed</span>
+      <h2>The rest of the product</h2>
+      <p>Group bets that show your live share of the pot, a lottery that pays out by itself, and topic communities with rules written to block betting scams.</p>
+      <div class="phones">
+        <figure class="shot"><button type="button" data-full="ba/grpjoin.jpg" data-cap="Join group bet: Live payout per outcome" aria-label="Enlarge Join group bet screen"><img src="ba/grpjoin.jpg" alt="BetAlmighty Join group bet screen: Live payout per outcome" loading="lazy" width="402" height="874"></button><figcaption><b>Join group bet</b>Live payout per outcome</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/notenough.jpg" data-cap="Not enough players: Auto-cancelled, refunded in full" aria-label="Enlarge Not enough players screen"><img src="ba/notenough.jpg" alt="BetAlmighty Not enough players screen: Auto-cancelled, refunded in full" loading="lazy" width="402" height="874"></button><figcaption><b>Not enough players</b>Auto-cancelled, refunded in full</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/committed.jpg" data-cap="Committed funds: Where every locked naira is" aria-label="Enlarge Committed funds screen"><img src="ba/committed.jpg" alt="BetAlmighty Committed funds screen: Where every locked naira is" loading="lazy" width="402" height="874"></button><figcaption><b>Committed funds</b>Where every locked naira is</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/usdt.jpg" data-cap="Deposit USDT: Network picker and QR" aria-label="Enlarge Deposit USDT screen"><img src="ba/usdt.jpg" alt="BetAlmighty Deposit USDT screen: Network picker and QR" loading="lazy" width="402" height="874"></button><figcaption><b>Deposit USDT</b>Network picker and QR</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/pick.jpg" data-cap="Pick your numbers: 5 of 36 or Quick Pick" aria-label="Enlarge Pick your numbers screen"><img src="ba/pick.jpg" alt="BetAlmighty Pick your numbers screen: 5 of 36 or Quick Pick" loading="lazy" width="402" height="874"></button><figcaption><b>Pick your numbers</b>5 of 36 or Quick Pick</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/won.jpg" data-cap="You won: Credited automatically" aria-label="Enlarge You won screen"><img src="ba/won.jpg" alt="BetAlmighty You won screen: Credited automatically" loading="lazy" width="402" height="874"></button><figcaption><b>You won</b>Credited automatically</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/communities.jpg" data-cap="Communities: Topics, members, private chats" aria-label="Enlarge Communities screen"><img src="ba/communities.jpg" alt="BetAlmighty Communities screen: Topics, members, private chats" loading="lazy" width="402" height="874"></button><figcaption><b>Communities</b>Topics, members, private chats</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/rules.jpg" data-cap="Community rules: Written to block betting scams" aria-label="Enlarge Community rules screen"><img src="ba/rules.jpg" alt="BetAlmighty Community rules screen: Written to block betting scams" loading="lazy" width="402" height="874"></button><figcaption><b>Community rules</b>Written to block betting scams</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/feed.jpg" data-cap="Feed: Predictions people can agree with" aria-label="Enlarge Feed screen"><img src="ba/feed.jpg" alt="BetAlmighty Feed screen: Predictions people can agree with" loading="lazy" width="402" height="874"></button><figcaption><b>Feed</b>Predictions people can agree with</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/report.jpg" data-cap="Report post: Scam or fixed-match claims" aria-label="Enlarge Report post screen"><img src="ba/report.jpg" alt="BetAlmighty Report post screen: Scam or fixed-match claims" loading="lazy" width="402" height="874"></button><figcaption><b>Report post</b>Scam or fixed-match claims</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/chat.jpg" data-cap="Chat: 1v1 challenge sent from a chat" aria-label="Enlarge Chat screen"><img src="ba/chat.jpg" alt="BetAlmighty Chat screen: 1v1 challenge sent from a chat" loading="lazy" width="402" height="874"></button><figcaption><b>Chat</b>1v1 challenge sent from a chat</figcaption></figure>
+        <figure class="shot"><button type="button" data-full="ba/lottery.jpg" data-cap="Lottery: Jackpot, active draws, upcoming" aria-label="Enlarge Lottery screen"><img src="ba/lottery.jpg" alt="BetAlmighty Lottery screen: Jackpot, active draws, upcoming" loading="lazy" width="402" height="874"></button><figcaption><b>Lottery</b>Jackpot, active draws, upcoming</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="cs-system">
+      <span class="eb">Design system</span>
+      <h2>Dark-first tokens with gold as the brand</h2>
+      <p>A near-black canvas, #1A1A1A cards and a gold primary. Bricolage Grotesque Bold carries the display moments (logo, wallet balances, page titles), and Geist runs the interface, small and dense. Cards, buttons and inputs share a 20px radius, on an iPhone 17 frame of 402 × 874.</p>
+      <div class="sw">
+        <div><i style="background:#0F0F0F"></i><b>App canvas</b><code>#0F0F0F</code></div>
+        <div><i style="background:#1A1A1A"></i><b>Card / nav</b><code>#1A1A1A</code></div>
+        <div><i style="background:#1E1E1E"></i><b>Input / raised</b><code>#1E1E1E</code></div>
+        <div><i style="background:#E8A020"></i><b>Gold primary</b><code>#E8A020</code></div>
+        <div><i style="background:#F5A623"></i><b>Gold bright</b><code>#F5A623</code></div>
+        <div><i style="background:#3E371F"></i><b>Gold tint</b><code>#3E371F</code></div>
+        <div><i style="background:#5AC462"></i><b>Success</b><code>#5AC462</code></div>
+        <div><i style="background:#ED5F59"></i><b>Danger</b><code>#ED5F59</code></div>
+        <div><i style="background:#4696EC"></i><b>Info / active bet</b><code>#4696EC</code></div>
+        <div><i style="background:#9E9EA3"></i><b>Text secondary</b><code>#9E9EA3</code></div>
+      </div>
+      <div class="typespec">
+        <div><span>Logo · Bricolage 700 · 36</span><b style="font:700 34px/1 var(--display)">BetAlmighty</b></div>
+        <div><span>Balance · Bricolage 700 · 32</span><b style="font:700 30px/1 var(--display);font-variant-numeric:tabular-nums">₦48,500.00</b></div>
+        <div><span>Page title · Bricolage 700 · 24</span><b style="font:700 22px/1.1 var(--display)">Play Responsibly</b></div>
+        <div><span>Button · Geist 700 · 16</span><b style="font:700 15px var(--geist)">Create a Bet</b></div>
+        <div><span>Body · Geist 400 · 14</span><span style="font:400 14px var(--geist);color:var(--c-2)">vs @king_ade · your pick</span></div>
+      </div>
+      <div class="scale" aria-label="Spacing scale">
+        <div><i style="width:10px"></i>10 · row gap</div>
+        <div><i style="width:18px"></i>18 · card padding</div>
+        <div><i style="width:28px"></i>28 · screen inset</div>
+        <div><i style="width:40px"></i>40 · nav gap</div>
+        <div><i style="width:52px"></i>52 · button height</div>
+      </div>
+    </section>
+
+    <section id="cs-handoff">
+      <span class="eb">Handoff</span>
+      <h2>What engineering received, and what I asked the client</h2>
+      <p>The screens came with the escrow state system, a token sheet, a failure state for every money flow, and a written handoff note.</p>
+      <div class="stats">
+        <div><b>135</b><span>screens, including error, empty and edge states</span></div>
+        <div><b>10</b><span>escrow states mapped with their transitions</span></div>
+        <div><b>13</b><span>open questions raised before build</span></div>
+      </div>
+      <div class="cards">
+        <div class="card"><span class="k">Rules the brief left open</span><p>I listed every rule the designs assume, covering fees, verification tiers, limits, settlement and crypto safeguards, so engineering builds what was drawn and the client can confirm each one.</p></div>
+        <div class="card"><span class="k">Questions before build</span><p>Several touch money directly. The brief let disputed funds be held until both sides produced clear evidence, with no deadline, so I recommended a maximum hold with an automatic refund when it runs out.</p></div>
+        <div class="card"><span class="k">A risk register</span><p>Including whether dispute handling could cost more than 1v1 bets earn, a legal check on combining crypto with real-money betting, and an honest flag: no flow had been tested with users yet.</p></div>
+        <div class="card"><span class="k">What's not covered</span><p>Admin tools, the web app, a light theme, an accessibility audit and a motion spec, stated up front so nobody assumes they exist.</p></div>
+      </div>
+    </section>
+
+    <section id="cs-outcome">
+      <span class="eb">Outcome</span>
+      <h2>Where it landed</h2>
+      <p>BetAlmighty is <b>in development</b>. I designed it on my own for the client between July and September 2026, then handed over the screens, the escrow state system, the token sheet and the handoff notes.</p>
+      <p class="pull">The client commended the simplicity and usability of the platform.<small>Client feedback</small></p>
+      <div class="cards">
+        <div class="card"><span class="k">What I'd do next</span><p>Test result confirmation and group-bet payouts with real users before build. They're the two places where people have to understand money they can't see.</p></div>
+        <div class="card"><span class="k">What I learned about AI</span><p>It's fastest at drafting flows and listing missing states. Judgement doesn't transfer: when a critique misread the product, deciding to set it aside was my job.</p></div>
+      </div>
+      <div class="end">
+        <span class="note" style="color:var(--c-4)">Designed in Figma for iPhone 17 (402 × 874). Mid-fidelity flows drafted with Claude.</span>
+        <a class="x gold" id="csClose2" href="/" data-home>Back to all work</a>
+      </div>
+    </section>
+  </article>
+</main>
+<div class="lb" id="lb" hidden><img id="lbImg" alt=""><p id="lbCap"></p></div>
+<script src="/assets/case.js?v=6" defer></script>
+</body>
+</html>
