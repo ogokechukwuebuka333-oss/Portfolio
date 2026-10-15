@@ -1,0 +1,6 @@
+tests/
+.venv/
+.claude/
+pytest.ini
+requirements-dev.txt
+.gitignore
