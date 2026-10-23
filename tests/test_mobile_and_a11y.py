@@ -20,12 +20,15 @@ def no_sideways_scroll(page, scroller="document.documentElement"):
     return page.evaluate(f"(() => {{ const e = {scroller}; return e.scrollWidth <= e.clientWidth; }})()")
 
 
-@pytest.mark.parametrize("path", ["/", "/betalmighty"])
+PAGES = ["/", "/betalmighty", "/activation-rescue", "/myestate", "/soundyaad"]
+
+
+@pytest.mark.parametrize("path", PAGES)
 def test_phone_has_no_horizontal_overflow(phone, base_url, path):
     phone.goto(base_url + path)
     phone.wait_for_load_state("networkidle")
     assert no_sideways_scroll(phone)
-    if path == "/betalmighty":
+    if path != "/":
         assert no_sideways_scroll(phone, "document.getElementById('csBody')")
 
 
@@ -37,13 +40,14 @@ def test_phone_layout_basics(phone, base_url):
 
 def test_phone_explorer_card_is_a_bottom_sheet(phone, base_url):
     phone.goto(base_url + "/")
-    phone.locator('#heroLabels .plabel[data-id="hassanah"]').tap()
+    phone.locator(".hexplore").tap()
+    phone.locator('#plabels .plabel[data-id="soundyaad"]').tap()
     expect(phone.locator("#explorer")).to_be_visible()
     card = phone.locator("#panel").bounding_box()
     assert card["y"] + card["height"] <= 812 + 1 and card["y"] > 812 * 0.45, card
     assert card["width"] > 375 * 0.9
     phone.wait_for_timeout(700)
-    label = phone.locator('#plabels .plabel[data-id="hassanah"]').bounding_box()
+    label = phone.locator('#plabels .plabel[data-id="soundyaad"]').bounding_box()
     assert label["y"] + label["height"] < card["y"], "selected building sits above the sheet"
 
 
@@ -55,7 +59,7 @@ def test_phone_flow_boards_scroll_sideways(phone, base_url):
     assert btn.evaluate("b => b.scrollWidth > b.clientWidth")
 
 
-@pytest.mark.parametrize("path", ["/", "/betalmighty"])
+@pytest.mark.parametrize("path", PAGES)
 def test_images_have_alt_and_controls_have_names(page, base_url, path):
     page.goto(base_url + path)
     missing_alt = page.eval_on_selector_all("img", "els => els.filter(e => !e.hasAttribute('alt')).map(e => e.src)")
@@ -119,7 +123,7 @@ CONTRAST_JS = r"""() => {
 
 
 @pytest.mark.parametrize("scheme", ["light", "dark"])
-@pytest.mark.parametrize("path", ["/", "/betalmighty"])
+@pytest.mark.parametrize("path", PAGES)
 def test_text_contrast_meets_wcag_aa(browser, base_url, scheme, path):
     ctx = browser.new_context(color_scheme=scheme, viewport={"width": 1440, "height": 900})
     page = ctx.new_page()

@@ -14,17 +14,14 @@ def test_featured_card_opens_case_and_back_returns(home, base_url):
     expect(home.locator("#case")).to_be_visible()
     home.go_back()
     expect(home).to_have_url(base_url + "/")
-    expect(home).to_have_title("Ogoke Works")
+    expect(home).to_have_title("Chukwuebuka Ogoke · Product Designer")
     expect(home.locator("#case")).to_have_count(0)
     home.go_forward()
     expect(home.locator("#case")).to_be_visible()
 
 
 def test_back_from_case_returns_to_the_same_spot(home, base_url):
-    home.locator("#drafting").scroll_into_view_if_needed()
-    y = home.evaluate("scrollY")
-    home.locator(".draft").first.wait_for()
-    home.evaluate("document.querySelector('#work').scrollIntoView({block:'center'})")
+    home.evaluate("document.querySelector('#openCase').scrollIntoView({block:'center'})")
     y = home.evaluate("scrollY")
     home.click("#openCase")
     expect(home).to_have_url(base_url + "/betalmighty")

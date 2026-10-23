@@ -5,13 +5,15 @@ import pytest
 from playwright.sync_api import expect
 
 EMAIL = "Harryebuka7@gmail.com"
+PAGES = ["/", "/betalmighty", "/activation-rescue", "/myestate", "/soundyaad"]
 
 
 def test_loads_with_hero(home):
-    expect(home).to_have_title("Ogoke Works")
+    expect(home).to_have_title("Chukwuebuka Ogoke · Product Designer")
     expect(home.locator(".who .nm")).to_have_text("Chukwuebuka Ogoke")
     expect(home.locator("h1:visible")).to_have_count(1)  # the hidden case study page has its own h1
-    expect(home.locator("h1:visible")).to_contain_text("messy specs")
+    expect(home.locator("h1:visible")).to_have_text("I turn complex product problems into clear, usable experiences.")
+    expect(home.locator(".who .rl")).to_have_text("Product Designer · AI-powered products · Complex workflows")
 
 
 def test_link_preview_tags(home, base_url):
@@ -22,7 +24,7 @@ def test_link_preview_tags(home, base_url):
 
 
 def test_nav_links_scroll_to_sections(home):
-    for target in ("work", "drafting", "process", "about"):
+    for target in ("work", "process", "about", "contact"):
         home.click(f'.nav a[href="#{target}"]')
         expect(home.locator(f"#{target}")).to_be_in_viewport()
 
@@ -37,10 +39,13 @@ def test_theme_toggle_persists(home):
     expect(html).to_have_attribute("data-theme", flipped)
 
 
-def test_hero_main_action_is_email(home):
-    first = home.locator(".intro .actions > *").first
-    expect(first).to_have_text(re.compile(r"^Email me"))
-    first.click()
+def test_hero_actions(home):
+    actions = home.locator(".intro .actions > *")
+    expect(actions).to_have_count(2)
+    expect(actions.first).to_have_text(re.compile(r"^Explore my work"))
+    expect(actions.first).to_have_attribute("href", "#work")
+    expect(actions.nth(1)).to_have_text("Get in touch")
+    actions.nth(1).click()
     expect(home.locator("#mailpop")).to_be_visible()
     expect(home.locator(".intro")).not_to_contain_text("Currently")
     expect(home.locator(".intro")).not_to_contain_text("Previously")
@@ -77,24 +82,26 @@ def test_email_menu_copy_and_every_trigger(home):
     expect(home.locator("#mailpop")).to_be_hidden(timeout=3000)
 
 
-def test_drafting_table_cards(home):
-    cards = home.locator(".draft")
-    expect(cards).to_have_count(3)
-    for name in ("Dataset Nexus Tech", "Hassanah Shonibare", "Soundyaad"):
-        expect(cards.filter(has_text=name)).to_have_count(1)
-    expect(cards.filter(has_text="Soundyaad").locator(".pill")).to_have_text("Non-design role")
-    expect(cards.filter(has_text="Soundyaad").locator(".stage")).to_have_count(0)
-    expect(cards.filter(has_text="Dataset Nexus Tech").locator(".stage small")).to_have_text("Design · stage 3 of 5")
-    assert cards.locator("[data-thumb]").count() == 3
-    cards.filter(has_text="Soundyaad").click()
-    expect(home.locator("#explorer")).to_be_visible()
-    expect(home.locator("#panel h2")).to_have_text("Soundyaad")
+WORK = [("Activation Rescue", "/activation-rescue"), ("MyEstates", "/myestate"), ("Soundyaad", "/soundyaad"), ("BetAlmighty", "/betalmighty")]
+
+
+def test_selected_work(home):
+    rows = home.locator("#work .proj")
+    expect(rows).to_have_count(4)
+    for i, (name, path) in enumerate(WORK):
+        row = rows.nth(i)
+        expect(row.locator("h3")).to_have_text(name)
+        expect(row.locator(".pj-cta")).to_have_attribute("href", path)
+        expect(row.locator("dt")).to_have_text(["Role", "Shows"])
+    expect(home.locator("main")).not_to_contain_text("Hassanah")  # hidden for now
 
 
 def test_process_and_contact(home):
     expect(home.locator("#process .pipe li")).to_have_count(5)
-    expect(home.locator("#process .prin li")).to_have_count(3)
-    expect(home.locator("#process")).not_to_contain_text("hold money")
+    expect(home.locator("#process h2")).to_have_text("I use AI to explore faster. I use design judgment to decide what ships.")
+    expect(home.locator("#process .aiex a")).to_have_attribute("href", "/betalmighty#cs-workflow")
+    expect(home.locator("#beyond h2")).to_have_text("Beyond my own designs")
+    expect(home.locator("#contact h2")).to_have_text("Have a complex product problem to solve?")
     expect(home.locator(".contact .addr")).to_have_text(EMAIL)
     expect(home.locator(".foot")).to_contain_text("Chukwuebuka Ogoke")
 
@@ -124,7 +131,7 @@ def test_city_is_in_the_first_screen(home):
     box = city.bounding_box()
     assert box["y"] + box["height"] / 2 < home.viewport_size["height"], "most of the city sits above the fold"
     expect(home.locator("#heroLabels .plabel")).to_have_count(5)
-    assert home.locator("#heroScene [data-id]").count() >= 5
+    assert home.locator("#heroScene [data-id]").count() >= 4
 
 
 def test_city_follows_the_site_theme(home):
@@ -146,9 +153,9 @@ def test_city_has_no_time_or_location_caption(home):
 
 
 def test_hero_building_opens_the_explorer(home):
-    home.locator('#heroLabels .plabel[data-id="hassanah"]').click()
+    home.locator('#heroLabels .plabel[data-id="hq"]').click()
     expect(home.locator(".plan")).to_have_class("plan full")
-    expect(home.locator("#panel h2")).to_have_text("Hassanah Shonibare")
+    expect(home.locator("#panel h2")).to_have_text("Chukwuebuka Ogoke")
     home.keyboard.press("Escape")
     expect(home.locator(".plan")).to_have_class("plan")
     expect(home.locator("#hcity")).to_be_in_viewport()  # you land back where you were
@@ -160,16 +167,30 @@ def test_explore_buttons_open_full_screen(home, trigger):
     expect(home.locator(".plan")).to_have_class("plan full")
 
 
-def test_hero_has_a_single_action(home):
-    actions = home.locator(".intro .actions > *")
-    expect(actions).to_have_count(1)
-    expect(actions.first).to_have_text(re.compile(r"^Email me"))
-    expect(home.locator(".intro")).not_to_contain_text("See BetAlmighty")
-    expect(home.locator(".intro")).not_to_contain_text("Open to work")
+def test_hero_label_opens_its_case_study(home, base_url):
+    label = home.locator('#heroLabels .plabel[data-id="myestate"]')
+    expect(label.locator("small")).to_have_text("Case study ↗")
+    label.click()
+    expect(home).to_have_url(base_url + "/myestate")
 
 
-@pytest.mark.parametrize("path", ["/", "/betalmighty"])
+@pytest.mark.parametrize("path", PAGES)
 def test_no_location_or_timezone_anywhere(page, base_url, path):
     page.goto(base_url + path)
     text = page.evaluate("document.documentElement.outerHTML")
     assert "Lagos" not in text and "WAT" not in text and "UTC+" not in text
+
+
+@pytest.mark.parametrize("width", [1920, 1280, 1100, 961, 768, 375])
+def test_hero_text_never_runs_into_the_city(browser, base_url, width):
+    page = browser.new_page(viewport={"width": width, "height": 900})
+    page.goto(base_url + "/")
+    r = page.evaluate("""() => { const h = document.querySelector('.intro h1'), c = document.getElementById('hcity').getBoundingClientRect();
+      const range = document.createRange(); range.selectNodeContents(h);
+      const right = Math.max(...[...document.querySelectorAll('.itext *')].filter(e => e.getClientRects().length).map(e => e.getBoundingClientRect().right), ...[...range.getClientRects()].map(x => x.right));
+      return {right, bottom: h.getBoundingClientRect().bottom, left: c.left, top: c.top} }""")
+    page.close()
+    if width > 960:
+        assert r["right"] <= r["left"], r  # side by side: text stays in its column
+    else:
+        assert r["bottom"] <= r["top"] and r["right"] <= width, r  # stacked: headline sits above the city

@@ -13,6 +13,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         path = self.path.split("?", 1)[0].rstrip("/") or "/"
         if path in REWRITES:
             self.path = REWRITES[path]
+        elif "." not in path.rsplit("/", 1)[-1] and os.path.isfile(os.path.join(ROOT, path.lstrip("/") + ".html")):
+            self.path = path + ".html"  # cleanUrls: /myestate serves myestate.html
         super().do_GET()
 
     def end_headers(self):

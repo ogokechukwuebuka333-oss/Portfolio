@@ -1,4 +1,5 @@
-"""The city explorer: a full-screen map opened from the hero, the explore buttons and the in-progress cards."""
+"""The city explorer: a full-screen map opened from the hero, the explore buttons and the case study links."""
+import pytest
 from playwright.sync_api import expect
 
 from conftest import view_box
@@ -14,7 +15,8 @@ def test_explorer_is_hidden_until_opened(home):
     open_explorer(home)
     expect(home.locator("#explorer")).to_be_visible()
     expect(home.locator("#xclose")).to_be_focused()
-    for pid in ("betalmighty", "dnt", "hassanah", "soundyaad", "hq"):
+    expect(home.locator('#scene g.pin[data-id="hassanah"]')).to_have_count(0)  # hidden for now
+    for pid in ("betalmighty", "dnt", "myestate", "soundyaad", "hq"):
         expect(home.locator(f'#scene g.pin[data-id="{pid}"]')).to_have_count(1)
 
 
@@ -29,16 +31,17 @@ def test_close_returns_focus_to_the_opener(home):
 
 def test_label_click_updates_the_floating_card(home):
     open_explorer(home)
-    home.locator('#plabels .plabel[data-id="hassanah"]').click()
-    expect(home.locator("#panel h2")).to_have_text("Hassanah Shonibare")
-    expect(home.locator("#panel .soon")).to_have_text("Case study in progress")
+    home.locator('#plabels .plabel[data-id="dnt"]').click()
+    expect(home.locator("#panel h2")).to_have_text("Dataset Nexus Tech")
+    expect(home.locator("#panel a.cta")).to_have_attribute("href", "/activation-rescue")
     home.locator('#plabels .plabel[data-id="hq"]').click()
     expect(home.locator("#panel h2")).to_have_text("Chukwuebuka Ogoke")
     expect(home.locator("#panel [data-mail]")).to_be_visible()
 
 
 def test_selected_building_is_not_hidden_behind_the_card(home):
-    home.locator('.draft[data-q="dnt"]').click()
+    open_explorer(home)
+    home.locator('#plabels .plabel[data-id="dnt"]').click()
     expect(home.locator("#panel h2")).to_have_text("Dataset Nexus Tech")
     home.wait_for_timeout(700)  # camera glide
     label = home.locator('#plabels .plabel[data-id="dnt"]').bounding_box()
@@ -110,9 +113,11 @@ def test_labels_follow_the_map_and_keep_their_size(home):
     assert abs(after["height"] - before["height"]) < 1
 
 
-def test_case_study_link_in_the_card(home, base_url):
+@pytest.mark.parametrize("pid,path", [("betalmighty", "/betalmighty"), ("dnt", "/activation-rescue"), ("myestate", "/myestate"), ("soundyaad", "/soundyaad")])
+def test_case_study_link_in_the_card(home, base_url, pid, path):
     open_explorer(home)
-    home.locator('#plabels .plabel[data-id="betalmighty"]').click()
+    home.locator(f'#plabels .plabel[data-id="{pid}"]').focus()  # some labels start behind the card
+    home.keyboard.press("Enter")
     home.locator("#panel a", has_text="Read the case study").click()
-    expect(home).to_have_url(base_url + "/betalmighty")
+    expect(home).to_have_url(base_url + path)
     expect(home.locator("#case")).to_be_visible()

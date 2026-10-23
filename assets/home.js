@@ -2,24 +2,28 @@
 const STAGES=["Discover","Define","Design","Test","Handoff"];
 const TYPE={Research:["R","var(--violet-soft)","var(--violet)"],UX:["UX","var(--accent-soft)","var(--accent)"],Visual:["V","var(--warn-soft)","var(--warn)"],Docs:["D","var(--good-soft)","var(--good)"],Systems:["S","var(--accent-soft)","var(--accent)"]};
 const P=[
- {id:"betalmighty",title:"Product designer",code:"BA-01",name:"BetAlmighty",sector:"Fintech · Betting",hue:218,x:1,y:1,w:3,d:3,h:4,status:"Case study",tone:"good",stage:5,
+ {id:"betalmighty",title:"Product designer",code:"BA-01",name:"BetAlmighty",sector:"Fintech · Betting",hue:218,x:1,y:1,w:3,d:3,h:4,status:"Case study",tone:"good",stage:5,page:"/betalmighty",
   metric:["Screens","135"],role:"Product designer, iOS app",
   summary:"A Nigerian betting app where friends stake against each other and the money waits in escrow. I designed the iOS app end to end: betting, escrow, wallet, lottery, community and responsible gambling.",
   items:[["135-screen iOS app","UX"],["Escrow state system","Systems"],["Responsible gambling tools","UX"],["Wallet: bank, card, crypto","UX"],["Design tokens","Visual"]],tags:"fintech betting escrow lottery wallet ios responsible gambling"},
- {id:"dnt",title:"Curriculum, brand & web design",code:"DN-02",name:"Dataset Nexus Tech",short:"Dataset Nexus",sector:"Edtech · Bootcamp",hue:176,x:10.3,y:0.8,w:2.2,d:2,h:3,status:"In progress",tone:"warn",stage:3,build:{f:.5,crane:[12.7,3.25]},pinUp:44,
-  metric:["Curriculum","16 weeks"],role:"Curriculum, brand and web design",
-  summary:"A remote, cohort-based product design bootcamp. I'm shaping the 16-week curriculum, the brand and the website's component library.",
-  items:[["16-week cohort curriculum","Docs"],["Website + Figma component library","Systems"],["Swiss-style brochure, 3-colour palette","Visual"],["Graduate testimonial briefs","Research"]],tags:"edtech bootcamp curriculum brand figma design system"},
- {id:"hassanah",title:"Brand strategist",code:"HS-07",name:"Hassanah Shonibare",short:"Hassanah",sector:"Fashion · Brand identity",hue:36,x:7.6,y:2.4,w:1.8,d:1.9,h:2.6,status:"In progress",tone:"warn",stage:1,build:{f:.3,crane:[7.25,2.05]},
+ {id:"dnt",title:"Product designer",code:"DN-02",name:"Dataset Nexus Tech",short:"Dataset Nexus",sector:"Edtech · Learning platform",hue:176,x:10.3,y:0.8,w:2.2,d:2,h:3,status:"Case study",tone:"good",stage:3,build:{f:.5,crane:[12.7,3.25]},pinUp:44,page:"/activation-rescue",
+  metric:["Sign-up","15+ fields → 2"],role:"Product designer",
+  summary:"A learning platform where new learners waited days for a sales-led onboarding. I redesigned it into self-service with instant access, and I lead the design team's critiques.",
+  items:[["Self-service onboarding","UX"],["Two-field sign-up","UX"],["Design system","Systems"],["Discovery: a new learner segment","Research"]],tags:"edtech onboarding activation sign-up design system critique"},
+ {id:"myestate",title:"Product designer on the team",code:"ME-04",name:"MyEstates",sector:"Proptech · Estate management",hue:150,x:7.6,y:2.4,w:1.8,d:1.9,h:2.6,status:"Case study",tone:"good",stage:4,page:"/myestate",
+  metric:["Roles","5 kinds of user"],role:"Product designer on the team · resident experience",
+  summary:"Estate management for gated communities: estates register and get approved, committees bill and enforce dues, and residents pay and keep a permanent record.",
+  items:[["Role and permission map","Systems"],["Resident app wireframes","UX"],["Payment and failure states","UX"]],tags:"proptech estate residents dues payments roles permissions"},
+ {id:"hassanah",hidden:true,title:"Brand strategist",code:"HS-07",name:"Hassanah Shonibare",short:"Hassanah",sector:"Fashion · Brand identity",hue:36,x:7.6,y:2.4,w:1.8,d:1.9,h:2.6,status:"In progress",tone:"warn",stage:1,build:{f:.3,crane:[7.25,2.05]},
   metric:["Archetype","Creator + Outlaw"],role:"Brand strategy and identity",
   summary:"Brand identity exploration for a Nigerian creative fashion house: archetype framing, positioning language and visual direction.",
   items:[["Archetype framing","Research"],["Positioning language","Docs"],["Visual identity direction","Visual"]],tags:"fashion brand identity strategy"},
- {id:"soundyaad",title:"Artist Relationship Manager",code:"SY-03",name:"Soundyaad",sector:"Music-tech · Artist platform",hue:262,x:1,y:8,w:2,d:2,h:3.4,status:"In progress",tone:"warn",stage:4,build:{f:.65,crane:[.45,7.45]},
+ {id:"soundyaad",title:"Artist Relationship Manager",code:"SY-03",name:"Soundyaad",sector:"Music-tech · Artist platform",hue:6,x:1,y:8,w:2,d:2,h:3.4,status:"Case study",tone:"good",stage:4,build:{f:.65,crane:[.45,7.45]},page:"/soundyaad",
   metric:["Focus","Feature adoption"],role:"Artist Relationship Manager",nondesign:true,
-  summary:"An African music platform for independent artists. I work on adoption: helping artists actually use Vault, smart links, bio-sites and curator pitching.",
-  items:[["Lifecycle and activation analysis","Research"],["Segmented onboarding messages","UX"],["Distributor and label outreach trackers","Docs"]],tags:"music artists retention adoption"},
+  summary:"A platform for independent African artists. Artists signed up but few started, so I diagnosed why, fixed how we measure it and set out what should change.",
+  items:[["Activation diagnosis","Research"],["Metric definitions","Docs"],["Segmented onboarding messages","UX"],["Explainer videos","Visual"]],tags:"music artists retention adoption"},
  {id:"hq",title:"Product designer",code:"HQ",name:"Studio HQ",sector:"About · Contact",hue:222,x:8.3,y:8.4,w:1.7,d:1.2,h:1.5,hq:true,tags:"about contact skills hire"}
-];
+].filter(p=>!p.hidden); // hidden projects stay in the data but leave the city and the cards
 const byId=Object.fromEntries(P.map(p=>[p.id,p]));
 const N=13, TW=64, TH=32, HZ=26;
 const svg=document.getElementById("scene");
@@ -319,9 +323,9 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",
 function panel(){
   const p=byId[sel], el=document.getElementById("panel");
   if(p.hq){
-    el.innerHTML=`<div class="ph"><div><span class="eyebrow">HQ · About</span><h2>Chukwuebuka Ogoke</h2></div><span class="pill good">Open to work</span></div>
-    <p class="sum">Product designer working across fintech, edtech and music-tech. I take products from messy specs to clear flows, systems and screens, and I stay close to the people who use them.</p>
-    <div class="stats"><div><span>Focus</span><b class="rl">Fintech · Edtech · Music-tech</b></div><div><span>Ventures</span><b>Multi-venture</b></div></div>
+    el.innerHTML=`<div class="ph"><div><span class="eyebrow">HQ · About</span><h2>Chukwuebuka Ogoke</h2></div></div>
+    <p class="sum">Product designer for AI-powered products and complex workflows. I turn complicated rules into clear flows, systems and screens, and I stay close to the people who use them.</p>
+    <div class="stats"><div><span>Focus</span><b class="rl">Complex workflows · AI-powered products</b></div><div><span>Ventures</span><b>Multi-venture</b></div></div>
     <h3>Skills inventory <span>6 in stock</span></h3>
     <ul class="inv">${[["Product strategy","Research"],["UX flows and state mapping","UX"],["Design systems in Figma","Systems"],["PRDs and design scopes","Docs"],["Brand and visual identity","Visual"],["User research and retention","Research"]].map(inv).join("")}</ul>
     <div class="links"><button class="cta" type="button" data-mail aria-haspopup="menu" aria-expanded="false">Email me</button><a class="cta alt" href="#about">About me</a></div>`;
@@ -332,7 +336,7 @@ function panel(){
     <h3>Deliverables <span>${p.items.length} items</span></h3>
     <ul class="inv">${p.items.map(inv).join("")}</ul>
     <div class="role">Role · <b>${esc(p.role)}</b></div>
-    ${p.id==="betalmighty"?`<a class="cta" href="/betalmighty">Read the case study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>`:`<div class="soon">Case study in progress</div>`}`;
+    ${p.page?`<a class="cta" href="${p.page}">Read the case study <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>`:`<div class="soon">Case study in progress</div>`}`;
   }
 }
 function inv([name,type]){const t=TYPE[type];return `<li><span class="sq" style="background:${t[1]};color:${t[2]}">${t[0]}</span><span class="nm">${esc(name)}</span><span class="tag">${type}</span></li>`}
@@ -345,31 +349,19 @@ function thumbMarkup(p,n){
        +building(p,n);
   sel=keep;return s;
 }
-function drafts(){
-  const n=dark();
-  document.getElementById("drafts").innerHTML=P.filter(p=>p.build).map(p=>`<button type="button" class="draft" style="--pc:${pcol(p,n)}" data-q="${p.id}" aria-label="Explore ${esc(p.name)} in the city">
-    <span class="thumb"><svg aria-hidden="true" focusable="false" data-thumb="${p.id}">${thumbMarkup(p,n)}</svg></span>
-    <span class="dh"><code>${p.code}</code>${p.nondesign?`<span class="pill">Non-design role</span>`:`<span class="pill warn">In progress</span>`}</span>
-    <h3>${esc(p.name)}</h3><span class="sec">${esc(p.sector)}</span>
-    <p>${esc(p.summary)}</p>
-    ${p.nondesign?"":`<span class="stage" aria-label="Stage ${p.stage} of ${STAGES.length}: ${STAGES[p.stage-1]}">${STAGES.map((_,i)=>`<i class="${i<p.stage?"on":""}"></i>`).join("")}<small>${STAGES[p.stage-1]} · stage ${p.stage} of ${STAGES.length}</small></span>`}
-    <span class="role">Role · <b>${esc(p.role)}</b></span></button>`).join("");
-  document.querySelectorAll("[data-thumb]").forEach(t=>{const bb=t.getBBox();if(bb.width)t.setAttribute("viewBox",`${bb.x-8} ${bb.y-8} ${bb.width+16} ${bb.height+16}`)});
-  document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>openExplorer(b.dataset.q));
-}
 function select(id){if(!byId[id])return;sel=id;render();panel()}
 
 // case study links: remember where the click came from so the case study page can grow out of it
 function rememberOrigin(r){try{sessionStorage.setItem("ow-from",JSON.stringify({t:r.top,l:r.left,r:r.right,b:r.bottom,w:innerWidth,h:innerHeight,bg:getComputedStyle(document.body).backgroundColor}))}catch(_){}}
-document.addEventListener("click",e=>{const a=e.target.closest('a[href="/betalmighty"]');if(a&&!e.metaKey&&!e.ctrlKey&&!e.shiftKey&&!e.button)rememberOrigin(a.getBoundingClientRect())});
+document.addEventListener("click",e=>{const a=e.target.closest('a[href="/betalmighty"],a[href="/activation-rescue"],a[href="/myestate"],a[href="/soundyaad"]');if(a&&!e.metaKey&&!e.ctrlKey&&!e.shiftKey&&!e.button)rememberOrigin(a.getBoundingClientRect())});
 
 // theme
 const tb=document.getElementById("theme");
 function themeLabel(){const n=dark();tb.innerHTML=n?`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Day`:`<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Night`}
 try{const saved=localStorage.getItem("ow-theme");if(saved)document.documentElement.setAttribute("data-theme",saved)}catch(_){}
 tb.onclick=()=>{const next=dark()?"light":"dark";document.documentElement.setAttribute("data-theme",next);try{localStorage.setItem("ow-theme",next)}catch(_){}};
-new MutationObserver(()=>{themeLabel();render();drafts()}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{themeLabel();render();drafts()});
+new MutationObserver(()=>{themeLabel();render()}).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{themeLabel();render()});
 
 
 
@@ -405,16 +397,16 @@ function renderHero(){
   heroSvg.innerHTML=cityMarkup(n);
   placeLabelsIn(heroSvg,heroLabels,n,false);
 }
-heroLabels.innerHTML=P.map(p=>`<button type="button" class="plabel" data-id="${p.id}" aria-label="${p.id==="betalmighty"?"Open the BetAlmighty case study":`Explore ${esc(p.hq?"About me":p.name)} in the city`}"><i></i><b>${esc(p.hq?"About me":(p.short||p.name))}</b>${p.id==="betalmighty"?"<small>Case study ↗</small>":""}</button>`).join("");
+heroLabels.innerHTML=P.map(p=>`<button type="button" class="plabel" data-id="${p.id}" aria-label="${p.page?`Open the ${esc(p.name)} case study`:`Explore ${esc(p.hq?"About me":p.name)} in the city`}"><i></i><b>${esc(p.hq?"About me":(p.short||p.name))}</b>${p.page?"<small>Case study ↗</small>":""}</button>`).join("");
 function openExplorer(id){setFull(true);if(id)focusOn(id)}
 function heroGo(id){
-  if(id!=="betalmighty"){openExplorer(id);return}
-  const g=heroSvg.querySelector('g.bld:not(.pin)[data-id="betalmighty"]');if(g)rememberOrigin(g.getBoundingClientRect());location.href="/betalmighty";
+  const p=byId[id];if(!p||!p.page){openExplorer(id);return}
+  const g=heroSvg.querySelector(`g.bld:not(.pin)[data-id="${id}"]`);if(g)rememberOrigin(g.getBoundingClientRect());location.href=p.page;
 }
 heroLabels.addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b)heroGo(b.dataset.id)});
 heroSvg.addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g)heroGo(g.dataset.id);else openExplorer()});
 document.querySelectorAll("[data-explore]").forEach(b=>b.onclick=()=>openExplorer());
 new ResizeObserver(()=>placeLabelsIn(heroSvg,heroLabels,dark(),false)).observe(heroSvg);
 
-buildLabels();themeLabel();select(sel);drafts();
+buildLabels();themeLabel();select(sel);
 })();

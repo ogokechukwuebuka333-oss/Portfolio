@@ -1,4 +1,6 @@
 (()=>{
+// ?draft shows the notes marking what still needs input; visitors never see them
+if(new URLSearchParams(location.search).has("draft"))document.documentElement.classList.add("draft");
 const RM=matchMedia("(prefers-reduced-motion: reduce)");
 const sheet=document.getElementById("case");
 
