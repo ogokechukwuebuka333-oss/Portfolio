@@ -121,3 +121,11 @@ def test_case_study_link_in_the_card(home, base_url, pid, path):
     home.locator("#panel a", has_text="Read the case study").click()
     expect(home).to_have_url(base_url + path)
     expect(home.locator("#case")).to_be_visible()
+
+
+def test_about_me_in_the_card_closes_the_city_and_scrolls_to_about(home):
+    open_explorer(home)
+    home.locator('#plabels .plabel[data-id="hq"]').click()
+    home.locator("#panel a", has_text="About me").click()
+    expect(home.locator("#explorer")).to_be_hidden()
+    expect(home.locator("#about h2")).to_be_in_viewport()

@@ -131,7 +131,10 @@ def test_text_contrast_meets_wcag_aa(browser, base_url, scheme, path):
     page.wait_for_timeout(300)
     if path == "/":
         page.locator("#heroLabels .plabel[data-id='hq']").click()  # include the About card in the explorer
-        page.wait_for_timeout(400)  # let the label's colour transition finish
+        page.locator("#plabels .plabel.on[data-id='hq']").wait_for()
+        # measure only once every colour fade has finished, or a half-faded label reads as low contrast
+        page.evaluate("Promise.all(document.getAnimations().filter(a => a instanceof CSSTransition).map(a => a.finished.catch(() => {})))")
+        page.wait_for_timeout(100)
     failures = page.evaluate(CONTRAST_JS)
     ctx.close()
     assert failures == {}, failures

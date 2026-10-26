@@ -18,8 +18,8 @@ const P=[
   metric:["Archetype","Creator + Outlaw"],role:"Brand strategy and identity",
   summary:"Brand identity exploration for a Nigerian creative fashion house: archetype framing, positioning language and visual direction.",
   items:[["Archetype framing","Research"],["Positioning language","Docs"],["Visual identity direction","Visual"]],tags:"fashion brand identity strategy"},
- {id:"soundyaad",title:"Artist Relationship Manager",code:"SY-03",name:"Soundyaad",sector:"Music-tech · Artist platform",hue:6,x:1,y:8,w:2,d:2,h:3.4,status:"Case study",tone:"good",stage:4,build:{f:.65,crane:[.45,7.45]},page:"/soundyaad",
-  metric:["Focus","Feature adoption"],role:"Artist Relationship Manager",nondesign:true,
+ {id:"soundyaad",title:"Co-founder and Retention Lead",code:"SY-03",name:"Soundyaad",sector:"Music-tech · Artist platform",hue:6,x:1,y:8,w:2,d:2,h:3.4,status:"Case study",tone:"good",stage:4,build:{f:.65,crane:[.45,7.45]},page:"/soundyaad",
+  metric:["Focus","Feature adoption"],role:"Co-founder and Retention Lead",nondesign:true,
   summary:"A platform for independent African artists. Artists signed up but few started, so I diagnosed why, fixed how we measure it and set out what should change.",
   items:[["Activation diagnosis","Research"],["Metric definitions","Docs"],["Segmented onboarding messages","UX"],["Explainer videos","Visual"]],tags:"music artists retention adoption"},
  {id:"hq",title:"Product designer",code:"HQ",name:"Studio HQ",sector:"About · Contact",hue:222,x:8.3,y:8.4,w:1.7,d:1.2,h:1.5,hq:true,tags:"about contact skills hire"}
@@ -291,6 +291,14 @@ function setFull(on){
     // leaving native full screen resets focus when it finishes, so restore it again then
     if(document.fullscreenElement)document.addEventListener("fullscreenchange",()=>requestAnimationFrame(()=>o.focus({preventScroll:true})),{once:true})}
 }
+// links in the card to a section of this page: close the city first, then go there
+document.getElementById("panel").addEventListener("click",e=>{
+  const a=e.target.closest('a[href^="#"]'),t=a&&document.querySelector(a.getAttribute("href"));if(!t)return;
+  e.preventDefault();opener=null;
+  const go=()=>requestAnimationFrame(()=>{t.scrollIntoView({behavior:RM.matches?"instant":"smooth",block:"start"});history.replaceState(null,"",a.getAttribute("href"))});
+  if(document.fullscreenElement)document.addEventListener("fullscreenchange",go,{once:true});
+  setFull(false);if(!document.fullscreenElement)go();
+});
 document.getElementById("xclose").onclick=()=>setFull(false);
 fb.onclick=()=>setFull(false);
 document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement)setFull(false)});
