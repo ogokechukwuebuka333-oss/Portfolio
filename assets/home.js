@@ -10,7 +10,7 @@ const P=[
   metric:["Sign-up","15+ fields → 2"],role:"Product designer",
   summary:"A learning platform where new learners waited days for a sales-led onboarding. I redesigned it into self-service with instant access, and I lead the design team's critiques.",
   items:[["Self-service onboarding","UX"],["Two-field sign-up","UX"],["Design system","Systems"],["Discovery: a new learner segment","Research"]],tags:"edtech onboarding activation sign-up design system critique"},
- {id:"myestate",title:"Product designer on the team",code:"ME-04",name:"MyEstates",sector:"Proptech · Estate management",hue:150,x:7.6,y:2.4,w:1.8,d:1.9,h:2.6,status:"Case study",tone:"good",stage:4,page:"/myestate",
+ {id:"myestate",title:"Product designer on the team",code:"ME-04",name:"MyEstates",sector:"Proptech · Estate management",hue:150,x:7.6,y:2.4,w:1.8,d:1.9,h:2.6,status:"Case study",tone:"good",stage:4,build:{f:.55,crane:[7.25,2.05]},pinUp:-16,page:"/myestate",
   metric:["Roles","5 kinds of user"],role:"Product designer on the team · resident experience",
   summary:"Estate management for gated communities: estates register and get approved, committees bill and enforce dues, and residents pay and keep a permanent record.",
   items:[["Role and permission map","Systems"],["Resident app wireframes","UX"],["Payment and failure states","UX"]],tags:"proptech estate residents dues payments roles permissions"},
