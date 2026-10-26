@@ -682,3 +682,23 @@ html:not(.draft) .todo,html:not(.draft) .todo-sec,html:not(.draft) .todo-link{di
 .cs .cart.cart-sy img:nth-child(1){transform:translate(14%,4%) rotate(-5deg)}
 .cs .cart.cart-sy img:nth-child(2){transform:translate(-14%,-4%) rotate(4deg)}
 @media (max-width:640px){.cs .tbl table{min-width:0}.cs .tbl thead{display:none}.cs .tbl tr{display:grid;gap:4px;padding:14px 16px;border-bottom:1px solid var(--c-line)}.cs .tbl tr:last-child{border-bottom:0}.cs .tbl th,.cs .tbl td{padding:0;border:0}.cs .tbl td[data-k]::before{content:attr(data-k) " · ";color:var(--c-4)}.cs .jrow{grid-template-columns:1fr}.cs .finds li{grid-template-columns:1fr}.cs .finds li::before{grid-row:auto}}
+
+/* video: a thumbnail until clicked, then the YouTube player */
+.cs .yt{margin:8px 0 0;display:grid;gap:8px}
+.cs .yt-play,.cs .yt iframe{display:block;width:100%;aspect-ratio:16/9;border:1px solid var(--c-line2);border-radius:clamp(14px,2vw,22px);overflow:hidden;background:#000}
+.cs .yt-play{all:unset;box-sizing:border-box;position:relative;cursor:pointer;display:block;width:100%;aspect-ratio:16/9;border:1px solid var(--c-line2);border-radius:clamp(14px,2vw,22px);overflow:hidden;background:#000}
+.cs .yt-play img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.cs .yt-play:hover img{transform:scale(1.02)}
+.cs .yt-play:focus-visible{outline:2px solid var(--c-gold);outline-offset:3px}
+.cs .yt-btn{position:absolute;left:50%;top:50%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;display:grid;place-items:center;background:var(--c-gold);color:#141005;box-shadow:0 10px 30px rgba(0,0,0,.45);transition:transform .2s}
+.cs .yt-play:hover .yt-btn{transform:scale(1.08)}
+.cs .yt figcaption{font-size:12.5px;color:var(--c-4)}
+.cs .yt figcaption b{display:block;color:var(--c-ink);font-weight:600;font-size:13px}
+.cs .yt figcaption a{color:var(--c-gold-b)}
+@media (prefers-reduced-motion: reduce){.cs .yt-play img,.cs .yt-btn{transition:none}}
+/* a landscape video beside a vertical short, at the same height */
+.cs .vids{display:grid;grid-template-columns:minmax(0,3.16fr) minmax(0,1fr);gap:14px;align-items:start}
+.cs .vids .yt{margin:0}
+.cs .yt.short .yt-play,.cs .yt.short iframe{aspect-ratio:9/16}
+@media (max-width:640px){.cs .vids{grid-template-columns:1fr}.cs .yt.short{max-width:260px;justify-self:center;width:100%}}
+.cs .yt.short .yt-play img{object-fit:contain;background:#fff}

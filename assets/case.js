@@ -41,6 +41,14 @@ document.querySelectorAll(".cs .esx").forEach(root=>{
   tabs.forEach((t,i)=>{t.onclick=()=>pick(i);t.onkeydown=e=>{const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(e.key==="Home"||e.key==="End"){e.preventDefault();pick(e.key==="Home"?0:tabs.length-1,true)}else if(d){e.preventDefault();pick((i+d+tabs.length)%tabs.length,true)}}});
 });
 
+// videos: swap the thumbnail for the YouTube player only when asked, so nothing loads from YouTube until then
+document.querySelectorAll(".cs .yt-play").forEach(b=>b.addEventListener("click",()=>{
+  const f=document.createElement("iframe");
+  f.src=`https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0&playsinline=1`;
+  f.title=b.dataset.title;f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;f.referrerPolicy="strict-origin-when-cross-origin";
+  b.replaceWith(f);f.focus();
+}));
+
 // before / after slider
 document.querySelectorAll(".cs .slider").forEach(el=>{const r=el.querySelector("input");r.addEventListener("input",()=>el.style.setProperty("--pos",r.value+"%"))});
 

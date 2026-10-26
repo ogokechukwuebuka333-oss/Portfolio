@@ -1,4 +1,6 @@
 """The Activation Rescue, MyEstates and Soundyaad case studies share one template."""
+import re
+
 import pytest
 from playwright.sync_api import expect
 
@@ -50,3 +52,17 @@ def test_screens_open_in_the_viewer(page, base_url):
     page.locator("#cs-edges .shot button").first.click()
     expect(page.locator("#lb")).to_be_visible()
     expect(page.locator("#lbCap")).to_contain_text("No online payment")
+
+
+def test_videos_load_from_youtube_only_when_played(page, base_url):
+    youtube = []
+    page.on("request", lambda r: "youtube" in r.url and youtube.append(r.url))
+    page.goto(base_url + "/soundyaad")
+    page.wait_for_load_state("networkidle")
+    assert youtube == [], "nothing loads from YouTube before someone presses play"
+    expect(page.locator(".yt-play")).to_have_count(2)
+    page.locator(".yt-play").first.click()
+    player = page.locator(".yt iframe")
+    expect(player).to_have_count(1)
+    expect(player).to_have_attribute("src", re.compile(r"^https://www\.youtube-nocookie\.com/embed/Zueb4syHmu0"))
+    expect(player).to_have_attribute("title", "Soundyaad Vault explainer")
