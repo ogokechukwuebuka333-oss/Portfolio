@@ -7,13 +7,13 @@ const P=[
   summary:"A Nigerian betting app where friends stake against each other and the money waits in escrow. I designed the iOS app end to end: betting, escrow, wallet, lottery, community and responsible gambling.",
   items:[["135-screen iOS app","UX"],["Escrow state system","Systems"],["Responsible gambling tools","UX"],["Wallet: bank, card, crypto","UX"],["Design tokens","Visual"]],tags:"fintech betting escrow lottery wallet ios responsible gambling"},
  {id:"dnt",title:"Product designer",code:"DN-02",name:"Dataset Nexus Tech",short:"Dataset Nexus",sector:"Edtech · Learning platform",hue:176,x:10.3,y:0.8,w:2.2,d:2,h:3,status:"Case study",tone:"good",stage:3,build:{f:.5,crane:[12.7,3.25]},pinUp:44,page:"/activation-rescue",
-  metric:["Sign-up","15+ fields → 2"],role:"Product designer",
+  metric:["Sign-up","15+ fields → short form"],role:"Product designer",
   summary:"A learning platform where new learners waited days for a sales-led onboarding. I redesigned it into self-service with instant access, and I lead the design team's critiques.",
-  items:[["Self-service onboarding","UX"],["Two-field sign-up","UX"],["Design system","Systems"],["Discovery: a new learner segment","Research"]],tags:"edtech onboarding activation sign-up design system critique"},
+  items:[["Self-service onboarding","UX"],["Short sign-up, Google and Apple","UX"],["Design system","Systems"],["Discovery: a new learner segment","Research"]],tags:"edtech onboarding activation sign-up design system critique"},
  {id:"myestate",title:"Product designer on the team",code:"ME-04",name:"MyEstates",sector:"Proptech · Estate management",hue:150,x:7.6,y:2.4,w:1.8,d:1.9,h:2.6,status:"Case study",tone:"good",stage:4,build:{f:.55,crane:[7.25,2.05]},pinUp:-16,page:"/myestate",
   metric:["Roles","5 kinds of user"],role:"Product designer on the team · resident experience",
   summary:"Estate management for gated communities: estates register and get approved, committees bill and enforce dues, and residents pay and keep a permanent record.",
-  items:[["Role and permission map","Systems"],["Resident app wireframes","UX"],["Payment and failure states","UX"]],tags:"proptech estate residents dues payments roles permissions"},
+  items:[["Role and permission map","Systems"],["Low-fidelity resident wireframes","UX"],["Payment and failure states","UX"]],tags:"proptech estate residents dues payments roles permissions"},
  {id:"hassanah",hidden:true,title:"Brand strategist",code:"HS-07",name:"Hassanah Shonibare",short:"Hassanah",sector:"Fashion · Brand identity",hue:36,x:7.6,y:2.4,w:1.8,d:1.9,h:2.6,status:"In progress",tone:"warn",stage:1,build:{f:.3,crane:[7.25,2.05]},
   metric:["Archetype","Creator + Outlaw"],role:"Brand strategy and identity",
   summary:"Brand identity exploration for a Nigerian creative fashion house: archetype framing, positioning language and visual direction.",
@@ -416,5 +416,10 @@ heroSvg.addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g)
 document.querySelectorAll("[data-explore]").forEach(b=>b.onclick=()=>openExplorer());
 new ResizeObserver(()=>placeLabelsIn(heroSvg,heroLabels,dark(),false)).observe(heroSvg);
 
+// Activation Rescue animation: play from the start each time it comes into view, pause when it leaves
+document.querySelectorAll(".arx").forEach(el=>{
+  if(!("IntersectionObserver" in window)){el.classList.add("run");return}
+  new IntersectionObserver(([e])=>{if(e.isIntersecting){el.classList.remove("run");void el.offsetWidth;el.classList.add("run")}else el.classList.remove("run")},{threshold:.35}).observe(el);
+});
 buildLabels();themeLabel();select(sel);
 })();

@@ -60,7 +60,7 @@ def test_videos_load_from_youtube_only_when_played(page, base_url):
     page.goto(base_url + "/soundyaad")
     page.wait_for_load_state("networkidle")
     assert youtube == [], "nothing loads from YouTube before someone presses play"
-    expect(page.locator(".yt-play")).to_have_count(2)
+    expect(page.locator(".yt-play")).to_have_count(3)
     page.locator(".yt-play").first.click()
     player = page.locator(".yt iframe")
     expect(player).to_have_count(1)
