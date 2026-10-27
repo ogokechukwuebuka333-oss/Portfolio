@@ -211,3 +211,21 @@ def test_city_intro_plays_once_per_session_and_never_for_reduced_motion(browser,
     page.goto(base_url + "/")
     expect(page.locator("#hcity")).not_to_have_class(re.compile(r"\bintro\b"))
     ctx.close()
+
+
+def test_scroll_reveals_show_content_and_respect_reduced_motion(browser, base_url):
+    ctx = browser.new_context(reduced_motion="no-preference")
+    page = ctx.new_page()
+    page.goto(base_url + "/")
+    contact = page.locator(".cta-end .contact")
+    expect(contact).to_have_attribute("data-rv", "")
+    contact.scroll_into_view_if_needed()
+    expect(contact).to_have_class(re.compile(r"\bin\b"))
+    expect(contact).to_have_css("opacity", "1")
+    ctx.close()
+    ctx = browser.new_context(reduced_motion="reduce")
+    page = ctx.new_page()
+    page.goto(base_url + "/")
+    expect(page.locator("html")).not_to_have_class(re.compile(r"\brv\b"))
+    expect(page.locator("[data-rv]")).to_have_count(0)
+    ctx.close()
