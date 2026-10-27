@@ -2,7 +2,7 @@
 const STAGES=["Discover","Define","Design","Test","Handoff"];
 const TYPE={Research:["R","var(--violet-soft)","var(--violet)"],UX:["UX","var(--accent-soft)","var(--accent)"],Visual:["V","var(--warn-soft)","var(--warn)"],Docs:["D","var(--good-soft)","var(--good)"],Systems:["S","var(--accent-soft)","var(--accent)"]};
 const P=[
- {id:"betalmighty",title:"Product designer",code:"BA-01",name:"BetAlmighty",sector:"Fintech · Betting",hue:218,x:1,y:1,w:3,d:3,h:4,status:"Case study",tone:"good",stage:5,page:"/betalmighty",
+ {id:"betalmighty",title:"Product designer",code:"BA-01",name:"BetAlmighty",sector:"Fintech · Betting",hue:218,x:1,y:1,w:3,d:3,h:4,status:"Case study",tone:"good",stage:5,page:"/betalmighty",pinUp:-18,
   metric:["Screens","135"],role:"Product designer, iOS app",
   summary:"A Nigerian betting app where friends stake against each other and the money waits in escrow. I designed the iOS app end to end: betting, escrow, wallet, lottery, community and responsible gambling.",
   items:[["135-screen iOS app","UX"],["Escrow state system","Systems"],["Responsible gambling tools","UX"],["Wallet: bank, card, crypto","UX"],["Design tokens","Visual"]],tags:"fintech betting escrow lottery wallet ios responsible gambling"},
@@ -28,7 +28,7 @@ const byId=Object.fromEntries(P.map(p=>[p.id,p]));
 const N=13, TW=64, TH=32, HZ=26;
 const svg=document.getElementById("scene");
 let sel="betalmighty";
-const HOME={x:-450,y:-150,w:900,h:600};
+const HOME={x:-450,y:-200,w:900,h:650};
 let vb={...HOME};
 
 const dark=()=>{const t=document.documentElement.getAttribute("data-theme");if(t)return t==="dark";return matchMedia("(prefers-color-scheme: dark)").matches};
@@ -43,12 +43,12 @@ function box(x,y,w,d,h,c,z0=0){
   const R=[iso(x+w,y,z0),iso(x+w,y+d,z0),iso(x+w,y+d,z0+h),iso(x+w,y,z0+h)];
   return poly(L,c.l)+poly(R,c.r)+poly(top,c.t);
 }
-function pal(n){return n?{ground:"#1B1D22",side1:"#131418",side2:"#0E0F12",grid:"rgba(236,226,206,.06)",road:"#25272D",line:"rgba(255,214,120,.35)",tree:"#24584A",tree2:"#1C4639",trunk:"#3A2E25",crate:"#5B4A35",crate2:"#4A3B2A",crate3:"#6B5840",lamp:"#FFD27A",body:"#C9D4E8",bodyS:"#8E9CB8",shadow:"rgba(0,0,0,.35)"}
-  :{ground:"#E6E2D9",side1:"#D2CDC1",side2:"#C3BDB0",grid:"rgba(70,58,36,.07)",road:"#D6D1C6",line:"rgba(255,255,255,.95)",tree:"#86CBA0",tree2:"#6DB68A",trunk:"#9A7A5A",crate:"#E3C08F",crate2:"#C9A26D",crate3:"#F0D3AA",lamp:"#9AA8C0",body:"#FFFFFF",bodyS:"#D3DBE8",shadow:"rgba(60,48,28,.14)"}}
+function pal(n){return n?{ground:"#16181C",side1:"#0F1013",side2:"#0A0B0D",grid:"rgba(210,220,230,.05)",road:"#202328",line:"rgba(255,190,90,.32)",tree:"#22392F",tree2:"#1A2E26",trunk:"#2E2620",crate:"#4A4136",crate2:"#3B342B",crate3:"#5A5043",lamp:"#FFB54D",body:"#C3CAD6",bodyS:"#8A93A3",shadow:"rgba(0,0,0,.4)",far:"#0D1116",farWin:"#E9B45A",fog:"#9FB0C2"}
+  :{ground:"#CFCCC5",side1:"#B6B2A9",side2:"#A6A298",grid:"rgba(40,40,44,.07)",road:"#BDBAB3",line:"rgba(255,255,255,.75)",tree:"#7E9C87",tree2:"#6A8A74",trunk:"#7C6A58",crate:"#B9A78C",crate2:"#A2917A",crate3:"#CDBDA3",lamp:"#8E98A6",body:"#F4F4F2",bodyS:"#C9CDD3",shadow:"rgba(30,30,36,.16)",far:"#9DA2A8",farWin:"#C9CDD2",fog:"#F2F3F3"}}
 function bcol(h,n,hq){
-  if(n) return {t:`hsl(${h} 24% 30%)`,l:`hsl(${h} 34% 21%)`,r:`hsl(${h} 36% 16%)`,win:"#FFD27A",winOff:`hsl(${h} 30% 26%)`,roof:`hsl(${h} 22% 36%)`};
-  return hq?{t:"#FFFFFF",l:"hsl(222 70% 60%)",r:"hsl(222 66% 50%)",win:"hsl(222 90% 92%)",winOff:"hsl(222 90% 92%)",roof:"hsl(222 30% 90%)"}
-           :{t:`hsl(${h} 35% 96%)`,l:`hsl(${h} 58% 64%)`,r:`hsl(${h} 54% 53%)`,win:`hsl(${h} 85% 90%)`,winOff:`hsl(${h} 85% 90%)`,roof:`hsl(${h} 25% 88%)`};
+  if(n) return {t:`hsl(${h} 10% 27%)`,l:`hsl(${h} 16% 18%)`,r:`hsl(${h} 18% 13%)`,win:"#FFC562",winOff:`hsl(${h} 14% 22%)`,roof:`hsl(${h} 9% 33%)`};
+  return hq?{t:"#F1F2F4",l:"hsl(222 32% 58%)",r:"hsl(222 30% 48%)",win:"hsl(222 40% 88%)",winOff:"hsl(222 40% 88%)",roof:"hsl(222 12% 86%)"}
+           :{t:`hsl(${h} 10% 90%)`,l:`hsl(${h} 24% 60%)`,r:`hsl(${h} 22% 49%)`,win:`hsl(${h} 30% 86%)`,winOff:`hsl(${h} 30% 86%)`,roof:`hsl(${h} 8% 82%)`};
 }
 function windows(p,c,n,r){
   let s="";const floors=Math.max(1,Math.floor(p.h));
@@ -58,10 +58,12 @@ function windows(p,c,n,r){
       const u0=(k+.22)/cols,u1=(k+.78)/cols,v0=f*fh+fh*.32,v1=f*fh+fh*.74;
       if(p.id==="betalmighty"&&f===0&&k%2===0) continue;
       const on=!n||r()>.32;
-      s+=poly([fn(u0,v0),fn(u1,v0),fn(u1,v1),fn(u0,v1)],on?c.win:c.winOff,(n&&on?'opacity=".95"':'opacity=".85"')+(p.id==="betalmighty"&&r()>.8?` class="tw" style="animation-delay:-${(r()*6).toFixed(1)}s"`:""));
+      const tw=p.id==="betalmighty"&&r()>.8, lvl=Math.round((p.z0||0)/.8)+f; // lvl: storey from the ground, for the intro
+      s+=poly([fn(u0,v0),fn(u1,v0),fn(u1,v1),fn(u0,v1)],on?c.win:c.winOff,(n&&on?'opacity=".95"':'opacity=".85"')+` class="wn${tw?" tw":""}" style="--f:${lvl}${tw?`;--tw:-${(r()*6).toFixed(1)}s`:""}"`);
     }}};
-  face(p.w,(u,v)=>iso(p.x+u*p.w,p.y+p.d,v));
-  face(p.d,(u,v)=>iso(p.x+p.w,p.y+u*p.d,v));
+  const z0=p.z0||0;
+  face(p.w,(u,v)=>iso(p.x+u*p.w,p.y+p.d,v+z0));
+  face(p.d,(u,v)=>iso(p.x+p.w,p.y+u*p.d,v+z0));
   return s;
 }
 function docks(p,n){ // loading bays on the hero building
@@ -172,6 +174,7 @@ function building(p,n){
   s+=poly([iso(p.x+.15,p.y+p.d,0),iso(p.x+p.w,p.y+p.d,0),iso(p.x+p.w+.6,p.y+p.d+.3,0),iso(p.x+.75,p.y+p.d+.3,0)],pal(n).shadow);
   if(sel===p.id){s+=poly([iso(p.x-.25,p.y-.25),iso(p.x+p.w+.25,p.y-.25),iso(p.x+p.w+.25,p.y+p.d+.25),iso(p.x-.25,p.y+p.d+.25)],"none",`stroke="${pcol(p,n)}" stroke-width="2" stroke-dasharray="6 5" opacity=".9"`);}
   if(p.id==="betalmighty") s+=hero(p,n);
+  if(p.id==="betalmighty"){s+=tower(p,c,n,r)+docks(p,n)+heroPeople(p,n)+"</g>";return s}
   s+=box(p.x,p.y,p.w,p.d,p.h,c);
   s+=windows(p,c,n,r)+docks(p,n);
   // parapet + roof unit
@@ -182,11 +185,65 @@ function building(p,n){
   if(p.id==="betalmighty") s+=heroPeople(p,n);
   s+="</g>";return s;
 }
+
+// ---------- Gotham ----------
+const TIERS=[[0,3.0],[.34,3.8],[.68,4.4]], SPIRE=6.15, NEEDLE=6.55; // BetAlmighty's stepped tower
+function tower(p,c,n,r){
+  let s="",z0=0;const dk={t:c.roof,l:c.l,r:c.r},stone=n?"#2A2D33":"#8F9196",stoneS=n?"#1D1F24":"#77797E";
+  TIERS.forEach(([i,h],k)=>{
+    const x=p.x+i,y=p.y+i,w=p.w-2*i,d=p.d-2*i;
+    s+=box(x,y,w,d,h-z0,c,z0);
+    s+=windows({...p,x,y,w,d,h:h-z0,z0,id:k?"_":p.id},c,n,r);
+    s+=box(x-.06,y-.06,w+.12,d+.12,.09,dk,h-.09); // cornice
+    if(k<2){ // gargoyles on the front corners of the lower tiers
+      [[x+w-.02,y+d-.02],[x+w-.02,y+.18],[x+.18,y+d-.02]].forEach(([gx,gy])=>{
+        s+=box(gx-.16,gy-.16,.2,.2,.16,{t:stone,l:stoneS,r:stoneS},h);
+        const hd=iso(gx+.08,gy+.08,h+.2);s+=`<path d="M${hd[0]-3} ${hd[1]} l3 -5 l3 5 l-1.5 2.5z" fill="${stoneS}"/>`;
+      });
+    }
+    z0=h;
+  });
+  // spire and needle with an aircraft light
+  const [i3]=TIERS[2],x=p.x+i3+.55,y=p.y+i3+.55,w=p.w-2*i3-1.1,d=p.d-2*i3-1.1,z=TIERS[2][1],a=iso(x+w/2,y+d/2,SPIRE);
+  s+=poly([iso(x,y+d,z),iso(x+w,y+d,z),a],n?"#3A3E46":"#A9ACB2")+poly([iso(x+w,y,z),iso(x+w,y+d,z),a],n?"#25282E":"#8C9097");
+  const nt=iso(x+w/2,y+d/2,NEEDLE);s+=L(a,nt,n?"#8A93A3":"#5E6470",1.4)+`<circle class="blink" cx="${nt[0]}" cy="${nt[1]}" r="2" fill="#FF4D4D"/>`;
+  return s+vigilante(iso(p.x+p.w-i3-.16,p.y+p.d-i3-.16,z),n);
+}
+// you, caped and crouched on the top ledge, keeping watch over the work
+function vigilante(pt,n){
+  const body=n?"#06070A":"#1A1C21",rim=n?'stroke="rgba(170,190,215,.45)" stroke-width=".6"':"";
+  return `<g transform="translate(${pt[0].toFixed(1)},${(pt[1]+1).toFixed(1)}) scale(1.4)" aria-hidden="true"><g class="vig">
+    <path class="cape" d="M-1.5 -12.5 C-6 -10 -9 -4 -10 1 C-6 -.2 -3 .8 0 .2 C3 .8 6 -.2 9 1.2 C8 -4 5 -10 1.5 -12.5z" fill="${body}" ${rim}/>
+    <path d="M-3.4 -12 C-3.4 -14.5 3.4 -14.5 3.4 -12 L2.6 -6 L-2.6 -6z" fill="${body}"/>
+    <path d="M-2.3 -14.2 L-2.6 -19 L-.9 -15.4 L.9 -15.4 L2.6 -19 L2.3 -14.2 C2.4 -11.4 -2.4 -11.4 -2.3 -14.2z" fill="${body}" ${rim}/>
+    <path d="M-1.6 -14.4 l1 .35 M1.6 -14.4 l-1 .35" stroke="${n?"#DDE6F2":"#E8ECF2"}" stroke-width=".7" stroke-linecap="round"/>
+  </g></g>`;
+}
+// a searchlight sweeping the sky, and a far skyline in the haze
+function searchlight(n){
+  const b=iso(12.2,2.4,0),h=iso(12.2,2.4,.3);
+  return `<g class="beam" style="transform-origin:${b[0]}px ${h[1]}px"><polygon points="${b[0]-3},${h[1]} ${b[0]+3},${h[1]} ${b[0]-60},${h[1]-560} ${b[0]-170},${h[1]-540}" fill="url(#beamG)" opacity="${n?.9:.5}"/></g>`;
+}
+function lightHousing(n){return box(12.05,2.25,.3,.3,.3,{t:n?"#3A3F48":"#9A9EA6",l:n?"#262A31":"#7E828A",r:n?"#1C1F25":"#6C7078"})
+}
+function skyline(n){
+  const P_=pal(n),r=rnd(77);let s=`<g opacity="${n?.95:.55}">`;
+  for(let x=-470;x<470;){const w=22+r()*30,h=60+r()*120,base=Math.abs(x+w/2)*.5+30,top=base-h-30;
+    s+=`<rect x="${x.toFixed(1)}" y="${top.toFixed(1)}" width="${w.toFixed(1)}" height="${(h+60).toFixed(1)}" fill="${P_.far}"/>`;
+    if(r()>.6)s+=`<path d="M${x+w*.3} ${top} L${x+w*.5} ${top-18-r()*20} L${x+w*.7} ${top}z" fill="${P_.far}"/>`;
+    if(n)for(let k=0;k<4;k++)if(r()>.55)s+=`<rect x="${(x+4+r()*(w-8)).toFixed(1)}" y="${(top+8+r()*(h-10)).toFixed(1)}" width="2" height="3" fill="${P_.farWin}" opacity=".55"/>`;
+    x+=w+2+r()*6;}
+  return s+"</g>";
+}
+function fog(n){
+  const c=pal(n).fog,o=n?.07:.32;
+  return `<g filter="url(#fogB)" pointer-events="none"><ellipse cx="-230" cy="240" rx="230" ry="34" fill="${c}" opacity="${o}"/><ellipse cx="190" cy="270" rx="260" ry="38" fill="${c}" opacity="${o}"/><ellipse cx="20" cy="120" rx="320" ry="26" fill="${c}" opacity="${o*.8}"/></g>`;
+}
 const PIN_AT={};
 // project colour: BetAlmighty's gold, the HQ's blueprint blue, otherwise the building's own hue
 const pcol=(p,n)=>p.id==="betalmighty"?"#E8A020":p.hq?(n?"#7DA3FF":"#2F5BEA"):`hsl(${p.hue} 58% ${n?62:46}%)`;
 function pin(p,n){
-  const t=iso(p.x+p.w/2,p.y+p.d/2,p.h+(p.hq?1.5:p.build?1.0:.6));const on=sel===p.id;
+  const t=iso(p.x+p.w/2,p.y+p.d/2,p.id==="betalmighty"?NEEDLE+.2:p.h+(p.hq?1.5:p.build?1.0:.6));const on=sel===p.id;
   const lift=(on?50:40)+(p.pinUp||0), c=pcol(p,n);
   PIN_AT[p.id]=[t[0],t[1]-lift];
   return `<g class="bld pin" data-id="${p.id}" style="pointer-events:all">
@@ -207,7 +264,8 @@ const LAMPS=[[1.5,5.9],[4.5,5.9],[9.5,5.9],[12,5.9],[5.9,1.5],[5.9,9.5],[5.9,12]
 let staticSVG="";
 function cityMarkup(n){
   const P_=pal(n);
-  let s=`<defs></defs>`;
+  let s=`<defs><linearGradient id="beamG" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="${n?"#FFE7B0":"#FFFFFF"}" stop-opacity=".55"/><stop offset="1" stop-color="${n?"#FFE7B0":"#FFFFFF"}" stop-opacity="0"/></linearGradient><filter id="fogB" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="14"/></filter></defs>`;
+  s+=skyline(n);
   // plate
   s+=poly([iso(0,N,0),iso(N,N,0),iso(N,N,-.7),iso(0,N,-.7)],P_.side1);
   s+=poly([iso(N,0,0),iso(N,N,0),iso(N,N,-.7),iso(N,0,-.7)],P_.side2);
@@ -218,13 +276,16 @@ function cityMarkup(n){
   const l1=iso(0,6.5),l2=iso(N,6.5),l3=iso(6.5,0),l4=iso(6.5,N);
   s+=`<line x1="${l1[0]}" y1="${l1[1]}" x2="${l2[0]}" y2="${l2[1]}" stroke="${P_.line}" stroke-width="1.6" stroke-dasharray="10 9"/><line x1="${l3[0]}" y1="${l3[1]}" x2="${l4[0]}" y2="${l4[1]}" stroke="${P_.line}" stroke-width="1.6" stroke-dasharray="10 9"/>`;
   s+=poly([iso(6,6),iso(7,6),iso(7,7),iso(6,7)],P_.road);
+  s+=searchlight(n);
   // objects sorted back-to-front
   const objs=[];
   P.forEach(p=>objs.push({k:p.x+p.w+p.y+p.d-.01,svg:building(p,n)}));
   TREES.forEach(([x,y])=>objs.push({k:x+y+.4,svg:tree(x,y,P_)}));
   CRATES.forEach(([x,y])=>objs.push({k:x+y+.76,svg:crate(x,y,P_)}));
   LAMPS.forEach(([x,y])=>objs.push({k:x+y,svg:lamp(x,y,P_,n)}));
+  objs.push({k:12.35+2.55,svg:lightHousing(n)});
   objs.sort((a,b)=>a.k-b.k).forEach(o=>s+=o.svg);
+  s+=fog(n);
   P.forEach(p=>s+=pin(p,n));
   return s;
 }
@@ -357,7 +418,13 @@ function thumbMarkup(p,n){
        +building(p,n);
   sel=keep;return s;
 }
-function select(id){if(!byId[id])return;sel=id;render();panel()}
+function select(id){if(!byId[id])return;sel=id;render();panel();showPanel(true)}
+// the details card can be hidden to see more of the city; picking a building brings it back
+const ptoggle=document.getElementById("ptoggle");
+function showPanel(on){const plan=document.getElementById("explorer");if(plan.classList.contains("nopanel")!==on)return;
+  plan.classList.toggle("nopanel",!on);ptoggle.setAttribute("aria-expanded",on);ptoggle.querySelector("span").textContent=on?"Hide details":"Show details";
+  document.getElementById("panel").inert=!on}
+ptoggle.onclick=()=>showPanel(document.getElementById("explorer").classList.contains("nopanel"));
 
 // case study links: remember where the click came from so the case study page can grow out of it
 function rememberOrigin(r){try{sessionStorage.setItem("ow-from",JSON.stringify({t:r.top,l:r.left,r:r.right,b:r.bottom,w:innerWidth,h:innerHeight,bg:getComputedStyle(document.body).backgroundColor}))}catch(_){}}
@@ -388,8 +455,8 @@ addEventListener("scroll",()=>{if(!mp.hidden)placeMail()},{passive:true,capture:
 document.getElementById("mailCopy").onclick=async()=>{const sm=document.querySelector("#mailCopy small");try{await navigator.clipboard.writeText("Harryebuka7@gmail.com");sm.textContent="Copied to clipboard"}catch(_){sm.textContent="Harryebuka7@gmail.com (select and copy)"}setTimeout(()=>{sm.textContent="Harryebuka7@gmail.com";closeMail()},1100)};
 
 // glide the map to a building
-function focusOn(id){if(!byId[id])return;select(id);const p=byId[id];const c=iso(p.x+p.w/2,p.y+p.d/2,p.h/2);
-  const R=svg.getBoundingClientRect(),C=document.getElementById("panel").getBoundingClientRect(),w=HOME.w*(R.width>1100?1.15:.85),h=w*HOME.h/HOME.w;
+function focusOn(id){if(!byId[id])return;select(id);const p=byId[id];const c=iso(p.x+p.w/2,p.y+p.d/2,(p.id==="betalmighty"?NEEDLE:p.h)/2+.3);
+  const R=svg.getBoundingClientRect(),pe=document.getElementById("panel"),C={right:pe.offsetLeft+pe.offsetWidth,top:pe.offsetTop,width:pe.offsetWidth,height:pe.offsetHeight},w=HOME.w*(R.width>1100?1.15:.85),h=w*HOME.h/HOME.w;
   const k=Math.max(w/R.width,h/R.height);let dx=0,dy=0;
   if(C.width&&C.height){if(R.width>760)dx=(C.right-R.left)/2;else dy=-(R.bottom-C.top)/2}
   const target={x:c[0]-w/2-dx*k,y:c[1]-h/2-dy*k,w,h};
@@ -399,8 +466,10 @@ function focusOn(id){if(!byId[id])return;select(id);const p=byId[id];const c=iso
 
 // ---------- hero: the city, in the site's light or dark theme ----------
 const heroSvg=document.getElementById("heroScene"), heroLabels=document.getElementById("heroLabels"), hcity=document.getElementById("hcity");
+// fill the hero frame's shape by adding sky above the city, so the tower and its label always have headroom
+function heroVB(){const r=heroSvg.getBoundingClientRect();if(!r.width)return;const h=Math.max(600,900*r.height/r.width);heroSvg.setAttribute("viewBox",`-450 ${(450-h).toFixed(1)} 900 ${h.toFixed(1)}`)}
 function renderHero(){
-  const n=dark();
+  const n=dark();heroVB();
   hcity.dataset.sky=n?"night":"day";
   heroSvg.innerHTML=cityMarkup(n);
   placeLabelsIn(heroSvg,heroLabels,n,false);
@@ -414,12 +483,15 @@ function heroGo(id){
 heroLabels.addEventListener("click",e=>{const b=e.target.closest("[data-id]");if(b)heroGo(b.dataset.id)});
 heroSvg.addEventListener("click",e=>{const g=e.target.closest("[data-id]");if(g)heroGo(g.dataset.id);else openExplorer()});
 document.querySelectorAll("[data-explore]").forEach(b=>b.onclick=()=>openExplorer());
-new ResizeObserver(()=>placeLabelsIn(heroSvg,heroLabels,dark(),false)).observe(heroSvg);
+new ResizeObserver(()=>{heroVB();placeLabelsIn(heroSvg,heroLabels,dark(),false)}).observe(heroSvg);
 
 // Activation Rescue animation: play from the start each time it comes into view, pause when it leaves
 document.querySelectorAll(".arx").forEach(el=>{
   if(!("IntersectionObserver" in window)){el.classList.add("run");return}
   new IntersectionObserver(([e])=>{if(e.isIntersecting){el.classList.remove("run");void el.offsetWidth;el.classList.add("run")}else el.classList.remove("run")},{threshold:.35}).observe(el);
 });
+// first visit this session: the city lights up out of the fog (the text beside it is readable from the start)
+(()=>{let seen=true;try{seen=!!sessionStorage.getItem("ow-intro");sessionStorage.setItem("ow-intro","1")}catch(_){}
+  if(seen||RM.matches)return;hcity.classList.add("intro");setTimeout(()=>hcity.classList.remove("intro"),2600)})();
 buildLabels();themeLabel();select(sel);
 })();

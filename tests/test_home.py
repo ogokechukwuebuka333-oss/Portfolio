@@ -194,3 +194,20 @@ def test_hero_text_never_runs_into_the_city(browser, base_url, width):
         assert r["right"] <= r["left"], r  # side by side: text stays in its column
     else:
         assert r["bottom"] <= r["top"] and r["right"] <= width, r  # stacked: headline sits above the city
+
+
+def test_city_intro_plays_once_per_session_and_never_for_reduced_motion(browser, base_url):
+    ctx = browser.new_context(reduced_motion="no-preference")
+    page = ctx.new_page()
+    page.goto(base_url + "/")
+    expect(page.locator("#hcity")).to_have_class(re.compile(r"\bintro\b"))
+    expect(page.locator("h1")).to_be_visible()  # the text never waits for the intro
+    expect(page.locator("#hcity")).not_to_have_class(re.compile(r"\bintro\b"), timeout=4000)
+    page.reload()
+    expect(page.locator("#hcity")).not_to_have_class(re.compile(r"\bintro\b"))
+    ctx.close()
+    ctx = browser.new_context(reduced_motion="reduce")
+    page = ctx.new_page()
+    page.goto(base_url + "/")
+    expect(page.locator("#hcity")).not_to_have_class(re.compile(r"\bintro\b"))
+    ctx.close()

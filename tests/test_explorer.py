@@ -1,4 +1,6 @@
 """The city explorer: a full-screen map opened from the hero, the explore buttons and the case study links."""
+import re
+
 import pytest
 from playwright.sync_api import expect
 
@@ -129,3 +131,20 @@ def test_about_me_in_the_card_closes_the_city_and_scrolls_to_about(home):
     home.locator("#panel a", has_text="About me").click()
     expect(home.locator("#explorer")).to_be_hidden()
     expect(home.locator("#about h2")).to_be_in_viewport()
+
+
+def test_details_card_can_be_hidden_and_comes_back(home):
+    open_explorer(home)
+    toggle = home.locator("#ptoggle")
+    expect(toggle).to_have_text("Hide details")
+    expect(toggle).to_have_attribute("aria-expanded", "true")
+    toggle.click()
+    expect(toggle).to_have_text("Show details")
+    expect(toggle).to_have_attribute("aria-expanded", "false")
+    expect(home.locator("#explorer")).to_have_class(re.compile(r"\bnopanel\b"))
+    toggle.click()
+    expect(toggle).to_have_text("Hide details")
+    toggle.click()
+    home.locator('#plabels .plabel[data-id="hq"]').click()  # picking a building brings the card back
+    expect(toggle).to_have_text("Hide details")
+    expect(home.locator("#panel h2")).to_have_text("Chukwuebuka Ogoke")
