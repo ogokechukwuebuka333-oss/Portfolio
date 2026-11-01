@@ -4,7 +4,7 @@ import pytest
 
 from playwright.sync_api import expect
 
-CASE_TITLE = "BetAlmighty case study · Ogoke Works"
+CASE_TITLE = "BetAlmighty case study · Chukwuebuka Ogoke"
 
 
 def test_featured_card_opens_case_and_back_returns(home, base_url):

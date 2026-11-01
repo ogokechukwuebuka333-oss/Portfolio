@@ -82,7 +82,7 @@ def test_email_menu_copy_and_every_trigger(home):
     expect(home.locator("#mailpop")).to_be_hidden(timeout=3000)
 
 
-WORK = [("Activation Rescue", "/activation-rescue"), ("MyEstates", "/myestate"), ("Soundyaad", "/soundyaad"), ("BetAlmighty", "/betalmighty")]
+WORK = [("BetAlmighty", "/betalmighty"), ("Soundyaad", "/soundyaad"), ("Activation Rescue", "/activation-rescue"), ("MyEstates", "/myestate")]
 
 
 def test_selected_work(home):
